@@ -1,41 +1,44 @@
 /* global $z, $, setTimeout, clearTimeout, innerStream, _, log, urlParams, location, Base64 */
 
-Array.prototype.sum = function() {
-  var i = this.length, r = 0;
-  while(i--) {
-    r += this[i];
-  }
-  return r;
-};
-
 var wait = function(msec, fn) {
   setTimeout(fn, msec);
 };
 
-var instructionCount = 1;
+var conditionSet = "missing"; // make global variable until overwritten
+var instructionCount = 1; // Set the initial instruction page
+var instructionPart = "instructions"; // Set the instruction prefix to start
 
-var nextInstruction = function(){
-  instructionCount++;
-  $z.showSlide("instructions" + instructionCount);
+var nextInstruction = function(){ // get next slide
+  instructionCount++; // add instruction count
+  $z.showSlide(instructionPart + instructionCount); // show slide
 };
 
-var conditionSet = "missing";
-
-var randomize = function(){
-  var x = Math.floor((Math.random() * 2));
-  if(x == 0) { // Think condition
-    var conditionSet = "think";
-  } else {
-    var conditionSet = "active";
+var randomize = function(){ // randomize to condition
+  var x = Math.floor((Math.random() * 2)); // flip a coin
+  if(x == 0) { // If tails, set condition and instruction prefix
+    conditionSet = "think";
+    instructionPart = "inst-think";
+  } else { // If heads, set condition and instruction prefix
+    conditionSet = "active";
+    instructionPart = "inst-active";
   }
-  $z.showSlide("inst-" + conditionSet + "1");
+  instructionCount = 1; // reset instruction count
+  console.log(instructionPart); // check
+  console.log(instructionCount); // check
+  $z.showSlide(instructionPart + instructionCount); // and show slides
 };
 
-var taskDelay = function(){
-  wait(3000, function(){nextInstruction()}
+var startFreePeriod = function(){
+  $z.showSlide("free-period"); // show free period
+  wait(10000, function(){
+    $z.showSlide("questions1") // wait X milliseconds then go onto next questions
+  } 
+  wait(10000, function(){
+    $z.showSlide("questions1") // wait X milliseconds then go onto next questions
+  } 
 )};
 
-$z.showSlide("instructions1");
+$z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");
 //$z.showSlide("cog-task");
 //$z.showSlide("sc-task");

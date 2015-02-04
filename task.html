@@ -163,7 +163,7 @@
 				<p>
 					Click 'Next' when you are ready to begin the Free Time Period.  
 				</p>
-				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+				<button class="zen" type="button" onclick="startFreePeriod()">NEXT</button>
 			</div>
 		</div>
 
@@ -300,7 +300,7 @@
 					Are you ready to do the entertaining activities you chose?
 				</p>
 				<input type="radio" name="ready" value="yes">YES<br>
-				<input type="radio" name="ready" value="no">NO
+				<input type="radio" name="ready" value="no">NO<br>
 				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
 				<p class="note"> 
 					Make this as a warning until they click yes.
@@ -324,6 +324,7 @@
 				<p>
 					Click '>>' when you are ready to begin the "Free Time" Period.
 				</p>
+				<button class="zen" type="button" onclick="startFreePeriod()">NEXT</button>
 			</div>
 		</div>
 
@@ -332,8 +333,8 @@
 				<p class="note">
 					This will be a blank screen for 12 minutes. It will be recording the screen size and whether this is the active window every thirty seconds.  
 				</p>
-				<p>
-					For testing, the delay has been set for 10 seconds
+				<p class="note">
+					For testing, the delay has been set for 10 seconds to allow next button press (at 12 minutes in task), and automatically move on after 15 seconds (at 13 minutes in task)
 				</p>
 				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
 			</div>
@@ -341,6 +342,9 @@
 
 		<div class="zen-slide" id="questions1">
 			<!-- This is where we will ask the post questions-->
+			<p class="note">
+				This is the first question!
+			</p>
 		</div>
 		<div class="zen-slide" id="cog-task">
 			<!-- This is where we will put the go/no-go task-->

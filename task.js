@@ -31,12 +31,20 @@ var randomize = function(){ // randomize to condition
 var startFreePeriod = function(){
   $z.showSlide("free-period"); // show free period
   wait(10000, function(){
-    $z.showSlide("questions1") // wait X milliseconds then go onto next questions
-  } 
-  wait(10000, function(){
-    $z.showSlide("questions1") // wait X milliseconds then go onto next questions
-  } 
-)};
+    $(".hideToShow").show(); // wait X to enable button
+  }) 
+  wait(15000, function(){
+    startQuestions(); // wait X milliseconds then go onto next questions automatically
+  })
+};
+
+var startQuestions = function() {
+  if(instructionPart != "questions") { // ensures only runs once
+    instructionPart = "questions"; // change instruction part
+    instructionCount = 1; // add instruction count
+    $z.showSlide(instructionPart + instructionCount); // show the start of the questions
+  }
+};
 
 $z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");

@@ -65,6 +65,10 @@
 font-family: courier
 }
 
+.hideToShow {
+    display: none;
+}
+
 .letter {
     font-size: 140%;
 }
@@ -79,4 +83,8 @@ font-family: courier
 .note {
 	color: red;
 	font-size: 60%;
+}
+
+td {
+    text-align:center; vertical-align:middle;
 }

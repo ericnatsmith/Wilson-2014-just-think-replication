@@ -19,13 +19,17 @@ body {
 	visibility: hidden;
 }
  
-.zen-slide p, .zen-slide li{
+.zen-slide p, .zen-slide li, .zen-slide table{
 	width: 800px;
 	margin: 0 auto;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	text-align: justify;
 	line-height: 1.2em;
+}
+
+table{
+	text-align: center;
 }
 
 input, select, button {font-family: arial, sans-serif; font-size: 1.25em}

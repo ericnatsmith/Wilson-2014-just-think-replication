@@ -106,7 +106,7 @@
 				</ul>
 				<p>Click 'Next'for further instructions.</p>
 				<p class="note">
-					NEED TO RANDOMIZE PEOPLE HERE!
+					Can we do binned randomize to get equal bin sizes?
 				</p>
 				<button class="zen" type="button" onclick="randomize()">NEXT</button>
 			</div>
@@ -336,15 +336,38 @@
 				<p class="note">
 					For testing, the delay has been set for 10 seconds to allow next button press (at 12 minutes in task), and automatically move on after 15 seconds (at 13 minutes in task)
 				</p>
-				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+				<p class="hideToShow">
+					The task is now over. Please click the 'Next' button below.
+				</p>
+
+				<button class="zen hideToShow" type="button" onclick="startQuestions()">NEXT</button>
 			</div>
 		</div>
 
 		<div class="zen-slide" id="questions1">
 			<!-- This is where we will ask the post questions-->
-			<p class="note">
-				This is the first question!
-			</p>
+			<table><tbody><tr>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+				<td width="11%">Hello</td>
+			</tr>
+			<tr>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+			</tr></tbody></table>
 		</div>
 		<div class="zen-slide" id="cog-task">
 			<!-- This is where we will put the go/no-go task-->

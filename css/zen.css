@@ -19,7 +19,7 @@ body {
 	visibility: hidden;
 }
  
-.zen-slide p {
+.zen-slide p, .zen-slide li{
 	width: 800px;
 	margin: 0 auto;
 	margin-top: 20px;

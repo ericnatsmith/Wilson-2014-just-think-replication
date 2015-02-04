@@ -19,6 +19,18 @@ var nextInstruction = function(){
   $z.showSlide("instructions" + instructionCount);
 };
 
+var conditionSet = "missing";
+
+var randomize = function(){
+  var x = Math.floor((Math.random() * 2));
+  if(x == 0) { // Think condition
+    var conditionSet = "think";
+  } else {
+    var conditionSet = "active";
+  }
+  $z.showSlide("inst-" + conditionSet + "1");
+};
+
 var taskDelay = function(){
   wait(3000, function(){nextInstruction()}
 )};
@@ -30,3 +42,4 @@ $z.showSlide("instructions1");
 
 // TODO: 
 // [ ] fix up launcher javascript to be more precise
+// [ ] replace next with gt gt

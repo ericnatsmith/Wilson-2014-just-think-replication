@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title></title>
+    <script src="js/underscore-1.4.4.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zen-0.4.js"></script>
+    <script src="js/logging.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/zen.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <style>
+      body {
+      font-family: arial;
+      }
+
+      p, ul {
+      line-height: 1.25em;
+      width: 800px;
+      margin: 0 auto;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      }
+
+      li {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em
+      }
+
+      p#accidental-close {
+      font-size: 0.5em;
+      margin-top: 2em;
+      }
+
+      p#legal {
+        font-size: 0.7em;
+      }
+
+      #launch, #launch-screen {
+      display: none
+      }
+
+      #recall-text {
+      margin: 0 auto;
+      font-family: helvetica, arial, sans-serif;
+      font-size: 40px;
+      }
+
+      #done {
+      display: none
+      }
+      button {
+          margin:0 auto;
+          display:block;
+      }
+
+    </style>
+    <script src="launcher.js"> </script>
+  </head>
+  <body>
+    <div id="launch-screen" class="left-align">
+      <p>
+       This activity will require approximately 20 minutes of your time. It is very important that you:
+      <ul >
+      <li>
+        Please gather a pen or pencil and a piece of paper, as you may need them later in the experiment.
+      </li>
+      <li>
+        Do this study when you are<strong> alone</strong> in your room.&nbsp; Please find a time when no else is around.
+      </li>
+      <li>
+        Put away or turn off all objects that may distract you (including phones, televisions, and any music devices), as there may be visual and auditory cues that you will need to focus on.&nbsp;</li>
+      <li>
+        Close all other programs and windows on your computer except for this one.
+      </li>
+      </ul>
+      <p>
+       All of your answers will remain confidential.</p>
+      <p>
+       If you cannot devote 20 minutes to this task now, free of all other distractions, please close this browser now.</p>
+      <p>
+       If you are ready to begin, accept this task, and click "Continue" to proceed to the next page.</p>
+      <p>It will open in a new window.</p>
+      <!-- Need to disable and enable once accepted on mturk -->
+      <!-- <button type="button" disabled="disabled" class="center">Continue</button> -->
+      <button type="button" class="center">Continue</button>
+      <p class="block-text" id="legal">
+          By answering the following questions, you are participating in a study being performed by scientists in the Stanford Department of Psychology. If you have questions about this research, please contact Eric Smith at <a href="mailto://ensmith@stanford.edu">ensmith@stanford.edu</a> or Mike Frank, at mcrank@stanford.edu. You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.
+        </p>
+
+      <p id="accidental-close"><i>If you accidentally closed the test window, refresh this page to restart</i></p>
+
+    </div>
+
+    <div id="done">
+      <p>Thank you for completing the study.</p>
+      <p>Please click the 'Submit HIT' button below.</p>
+    </div>
+
+  </body> 
+</html>

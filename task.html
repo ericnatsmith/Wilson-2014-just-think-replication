@@ -1,0 +1,134 @@
+<!-- This code graciously adapted from https://github.com/longouyang/gradisar-ospan -->
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html>
+<head>
+	<title>Survey</title>
+	<script src="js/underscore-1.4.4.min.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/zen-0.4.js"></script>
+	<script src="js/json2.js"></script>
+	<script src="js/Base64.js"></script>
+	<script src="js/logging.js"></script> 
+	<link rel="stylesheet" type="text/css" href="css/zen.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+
+	<div id="wrapper">
+		<div class="zen-slide" id="instructions1">
+			<div class="zen-slide-center">
+				<p>
+					Are all devices that could possibly distract you turned off in your room? (This includes phones, televisions, radios, iTunes, and anything else that could potentially distract you).
+				</p>
+				<input type="radio" name="devices" value="off">YES<br>
+				<input type="radio" name="devices" value="on">NO
+				<p class="note"> 
+					Make this as a warning until they click yes.
+				</p>
+				<p>
+					You have indicated that you have not turned off all devices in your room that could potentially distract you. Please take the time to do so now, as it is very important that you are not distracted during the remainder of the study.
+				</p>
+				<p>
+					Please click 'Yes' above when you have finished turning off all devices.
+				</p>
+				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+				
+			</div>
+		</div>
+
+		<div class="zen-slide" id="instructions2">
+			<div class="zen-slide-center">
+				<p>
+					Are you currently alone in your room?
+				</p>
+				<input type="radio" name="alone" value="yes">YES<br>
+				<input type="radio" name="alone" value="no">NO
+				<p class="note"> 
+					Make this as a warning until they click yes.
+				</p>
+				<p>
+					Please close this webpage and complete this activity during a time in which you are alone in your room, as it is VERY important that you are in your room alone during the entirety of the study.
+				</p>
+				<p>
+					Please do not click 'Yes' above unless you find a place to be alone for 15 minutes.
+				</p>
+				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+			</div>
+		</div>
+		<div class="zen-slide" id="instructions3">
+			<div class="zen-slide-center">
+				<p>
+					OK, a few more things before we begin:
+				</p>
+				<p>
+					(1) if you are using a laptop, PLEASE MAKE SURE IT IS PLUGGED INTO AN EXTERNAL POWER SOURCE.  It is important that your computer not go into "sleep mode" during the study.
+				</p>
+				<p>
+					(2) If the screen is not maximized, please maximize this screen on your computer so that everything will display properly.
+				</p>
+				<p class="note">
+					Record the size of the screen to make sure it is the same size across all screens
+				</p>
+				<p>
+					(3) Please make sure the sound on your computer is turned on, because later on there will be a beep indicating that there are some questions to anwer.
+				</p>
+				<p class="note">
+					I don't believe there is any sound in this setup, but double check this.
+				</p>
+				<p>
+					Please click 'Next' when you have taken care of these two things.
+				</p>
+				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+			</div>
+		</div>
+		<div class="zen-slide" id="instructions4">
+			<div class="zen-slide-center">
+				<p>
+					Thank you for participating in our study today.  We are interested in a very simple question, namely how people pass the time when they have nothing to do.
+				</p>
+				<p><b><u>
+					What you will be doing
+				</u></b></p>
+				<ul>
+					<li>
+						In a few minutes, you will be asked to sit by yourself in your room (without getting up to walk around or falling asleep), in what we will call the "Free Time" Period, which will last from 10-15 minutes.
+					</li>
+					<li>First, you will receive some instructions for the Free Time Period.
+					</li>
+					<li>
+						Second, you will be asked to follow those instructions for the 10-15 minute Free Time Period
+					</li>
+					<li>
+						Third, you will answer some questions on the computer.
+					</li>
+				</ul>
+				<p>Click 'Next'for further instructions.</p>
+				<p class="note">
+					NEED TO RANDOMIZE PEOPLE HERE!
+				</p>
+				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+			</div>
+		</div>
+		<div class="zen-slide" id="free-period">
+			<!-- This is where we will record screen size and if anything is on top of browser -->
+		</div>
+		<div class="zen-slide" id="questions1">
+			<!-- This is where we will ask the post questions-->
+		</div>
+		<div class="zen-slide" id="cog-task">
+			<!-- This is where we will put the go/no-go task-->
+			<!-- See http://docs.jspsych.org/tutorials/go-nogo-task/ for example -->
+		</div>
+		<div class="zen-slide" id="sc-task">
+			<!-- This is where we will put the self-control task-->
+		</div>
+
+
+	</body>
+
+	<script src="task.js"></script>
+
+
+	</html>

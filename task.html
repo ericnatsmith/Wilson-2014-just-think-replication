@@ -22,8 +22,8 @@
 				<p>
 					Are all devices that could possibly distract you turned off in your room? (This includes phones, televisions, radios, iTunes, and anything else that could potentially distract you).
 				</p>
-				<input type="radio" name="devices" value="off" onclick="hideHiddenEnable()">YES<br>
-				<input type="radio" name="devices" value="on" onclick="showHidden()">NO<br>
+				<input type="radio" name="devices" value="off" onclick="hideHiddenEnable('deviceCheck')">YES<br>
+				<input type="radio" name="devices" value="on" onclick="showHiddenDisable('deviceCheck')">NO<br>
 				<div class="hideToShow warning">
 					<p>
 						You have indicated that you have not turned off all devices in your room that could potentially distract you. Please take the time to do so now, as it is very important that you are not distracted during the remainder of the study.
@@ -32,7 +32,7 @@
 						Please click 'Yes' above when you have finished turning off all devices.
 					</p>
 				</div>
-				<button class="zen" type="button" onclick="nextInstruction()" disabled="disabled">NEXT</button>
+				<button id="deviceCheck" class="zen" type="button" onclick="nextInstruction()" disabled=>NEXT</button>
 				
 			</div>
 		</div>
@@ -42,18 +42,17 @@
 				<p>
 					Are you currently alone in your room?
 				</p>
-				<input type="radio" name="alone" value="yes">YES<br>
-				<input type="radio" name="alone" value="no">NO
-				<p class="note"> 
-					Make this as a warning until they click yes.
-				</p>
-				<p>
-					Please close this webpage and complete this activity during a time in which you are alone in your room, as it is VERY important that you are in your room alone during the entirety of the study.
-				</p>
-				<p>
-					Please do not click 'Yes' above unless you find a place to be alone for 15 minutes.
-				</p>
-				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+				<input type="radio" name="alone" value="yes" onclick="hideHiddenEnable()">YES<br>
+				<input type="radio" name="alone" value="no" onclick="showHidden()">NO<br>
+				<div class="hideToShow warning">
+					<p>
+						Please close this webpage and complete this activity during a time in which you are alone in your room, as it is VERY important that you are in your room alone during the entirety of the study.
+					</p>
+					<p>
+						Please do not click 'Yes' above unless you find a place to be alone for 15 minutes.
+					</p>
+				</div>
+				<button class="zen" type="button" onclick="nextInstruction()" disabled="disabled">NEXT</button>
 			</div>
 		</div>
 		<div class="zen-slide" id="instructions3">

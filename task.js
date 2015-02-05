@@ -30,13 +30,14 @@ var randomize = function(){ // randomize to condition
   $(document).scrollTop(0);// go to top of page
 };
 
-var hideHiddenEnable = function(){
+var hideHiddenEnable = function(id){
   $(".hideToShow").hide();
-  $("button").removeAttr("disabled");
+  $("#" + id).removeAttr("disabled");
 }
 
-var showHidden = function(){
+var showHiddenDisable = function(id){
   $(".hideToShow").show();
+  $("#" + id).attr("disabled",true);
 }
 
 var startFreePeriod = function(){

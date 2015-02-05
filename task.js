@@ -11,6 +11,7 @@ var instructionPart = "instructions"; // Set the instruction prefix to start
 var nextInstruction = function(){ // get next slide
   instructionCount++; // add instruction count
   $z.showSlide(instructionPart + instructionCount); // show slide
+  $(document).scrollTop(0);// go to top of page
 };
 
 var randomize = function(){ // randomize to condition
@@ -26,6 +27,7 @@ var randomize = function(){ // randomize to condition
   console.log(instructionPart); // check
   console.log(instructionCount); // check
   $z.showSlide(instructionPart + instructionCount); // and show slides
+  $(document).scrollTop(0);// go to top of page
 };
 
 var startFreePeriod = function(){
@@ -36,6 +38,7 @@ var startFreePeriod = function(){
   wait(15000, function(){
     startQuestions(); // wait X milliseconds then go onto next questions automatically
   })
+  $(document).scrollTop(0);// go to top of page
 };
 
 var startQuestions = function() {
@@ -43,9 +46,23 @@ var startQuestions = function() {
     instructionPart = "questions"; // change instruction part
     instructionCount = 1; // add instruction count
     $z.showSlide(instructionPart + instructionCount); // show the start of the questions
+    $(document).scrollTop(0);// go to top of page
   }
 };
 
+var endExperiment = function() {
+  $z.showSlide("thank-you"); // show the start of the questions
+  wait(3000, function(){
+    closeWindow();
+  }) // wait X milliseconds then go onto next questions automatically
+};
+
+var closeWindow = function() {
+  window.opener=self;
+  window.close();
+}
+
+//$z.showSlide("questions5"); // for testing
 $z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");
 //$z.showSlide("cog-task");

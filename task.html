@@ -142,7 +142,7 @@
 					You don't have to only think about these items that you write down, but you can keep the list by you during the Free Time Period for your reference.
 				</p>
 				<div class="textblock">
-					<textarea id="think-plan" rows="4" cols="8"></textarea>
+					<textarea id="think-plan" rows="20" cols="80"></textarea>
 				</div>
 				<p class="note">Put activity 1, 2, 3 as grayed out text as filler</p>
 				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
@@ -346,35 +346,348 @@
 
 		<div class="zen-slide" id="questions1">
 			<!-- This is where we will ask the post questions-->
+			<p class="question-text">
+				How enjoyable was this part of the study?
+			</p>
 			<table><tbody><tr>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
-				<td width="11%">Hello</td>
+				<td width="11%">Not at all enjoyable</td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%">Somewhat enjoyable</td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%">Extremely enjoyable</td>
 			</tr>
 			<tr>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
-				<td width="11%"><input questionId="test" type="radio" value="1" name="tmp"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="1" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="2" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="3" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="4" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="5" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="6" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="7" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="8" name="enjoy"></td>
+				<td width="11%"><input questionId="enjoy" type="radio" value="9" name="enjoy"></td>
 			</tr></tbody></table>
+			<p class="question-text">
+				To what extent did you find your mind wandering during the Free Time Period?
+			</p>
+			<table><tbody><tr>
+				<td width="11%">Not at all</td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%">Somewhat</td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%">Very much</td>
+			</tr>
+			<tr>
+				<td width="11%"><input questionId="wander" type="radio" value="1" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="2" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="3" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="4" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="5" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="6" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="7" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="8" name="wander"></td>
+				<td width="11%"><input questionId="wander" type="radio" value="9" name="wander"></td>
+			</tr></tbody></table>
+			<p class="question-text">
+				How hard was it to concentrate on what you chose to think about?
+			</p>
+			<table><tbody><tr>
+				<td width="11%">Not at all</td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%">Somewhat</td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%"></td>
+				<td width="11%">Very much</td>
+			</tr>
+			<tr>
+				<td width="11%"><input questionId="concentrate" type="radio" value="1" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="2" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="3" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="4" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="5" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="6" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="7" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="8" name="concentrate"></td>
+				<td width="11%"><input questionId="concentrate" type="radio" value="9" name="concentrate"></td>
+			</tr></tbody></table>
+			<p class="note">Need to save data still</p>
+			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
 		</div>
+
+	<div class="zen-slide" id="questions2">
+			<!-- This is where we will ask the post questions-->
+			<p class="question-text">
+				During the Free Time Period, how much time did you spend (if any) doing each of the following?
+			</p>
+			<table class="blockTable"><tbody>
+			<tr>
+				<td width="30%"></td>
+				<td width="10%">0 minutes<br>(no time)</td>
+				<td width="10%">1-2 minutes</td>
+				<td width="10%">3-4 minutes</td>
+				<td width="10%">5-6 minutes</td>
+				<td width="10%">7-8 minutes</td>
+				<td width="10%">9-10 minutes</td>
+				<td width="10%">11-12 minutes</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="30%">Fell asleep</td>
+				<td ><input questionId="asleep" type="radio" value="0" name="asleep"></td>
+				<td ><input questionId="asleep" type="radio" value="1" name="asleep"></td>
+				<td ><input questionId="asleep" type="radio" value="3" name="asleep"></td>
+				<td ><input questionId="asleep" type="radio" value="5" name="asleep"></td>
+				<td ><input questionId="asleep" type="radio" value="7" name="asleep"></td>
+				<td ><input questionId="asleep" type="radio" value="9" name="asleep"></td>
+				<td ><input questionId="asleep" type="radio" value="11" name="asleep"></td>
+			</tr>
+			<tr>
+				<td width="30%">Talked to someone on my cell phone or land line</td>
+				<td ><input questionId="phonetalk" type="radio" value="0" name="phonetalk"></td>
+				<td ><input questionId="phonetalk" type="radio" value="1" name="phonetalk"></td>
+				<td ><input questionId="phonetalk" type="radio" value="3" name="phonetalk"></td>
+				<td ><input questionId="phonetalk" type="radio" value="5" name="phonetalk"></td>
+				<td ><input questionId="phonetalk" type="radio" value="7" name="phonetalk"></td>
+				<td ><input questionId="phonetalk" type="radio" value="9" name="phonetalk"></td>
+				<td ><input questionId="phonetalk" type="radio" value="11" name="phonetalk"></td>
+			</tr>
+			<tr>
+				<td width="30%">Texted someone</td>
+				<td ><input questionId="phonetext" type="radio" value="0" name="phonetext"></td>
+				<td ><input questionId="phonetext" type="radio" value="1" name="phonetext"></td>
+				<td ><input questionId="phonetext" type="radio" value="3" name="phonetext"></td>
+				<td ><input questionId="phonetext" type="radio" value="5" name="phonetext"></td>
+				<td ><input questionId="phonetext" type="radio" value="7" name="phonetext"></td>
+				<td ><input questionId="phonetext" type="radio" value="9" name="phonetext"></td>
+				<td ><input questionId="phonetext" type="radio" value="11" name="phonetext"></td>
+			</tr>
+			<tr>
+				<td width="30%">Used my cell phone to do something else (e.g., play a game)</td>
+				<td ><input questionId="phonegame" type="radio" value="0" name="phonegame"></td>
+				<td ><input questionId="phonegame" type="radio" value="1" name="phonegame"></td>
+				<td ><input questionId="phonegame" type="radio" value="3" name="phonegame"></td>
+				<td ><input questionId="phonegame" type="radio" value="5" name="phonegame"></td>
+				<td ><input questionId="phonegame" type="radio" value="7" name="phonegame"></td>
+				<td ><input questionId="phonegame" type="radio" value="9" name="phonegame"></td>
+				<td ><input questionId="phonegame" type="radio" value="11" name="phonegame"></td>
+			</tr>
+			<tr>
+				<td width="30%">Chatted with someone using an Instant Messenger program or Facebook </td>
+				<td ><input questionId="imchat" type="radio" value="0" name="imchat"></td>
+				<td ><input questionId="imchat" type="radio" value="1" name="imchat"></td>
+				<td ><input questionId="imchat" type="radio" value="3" name="imchat"></td>
+				<td ><input questionId="imchat" type="radio" value="5" name="imchat"></td>
+				<td ><input questionId="imchat" type="radio" value="7" name="imchat"></td>
+				<td ><input questionId="imchat" type="radio" value="9" name="imchat"></td>
+				<td ><input questionId="imchat" type="radio" value="11" name="imchat"></td>
+			</tr>
+			<tr>
+				<td width="30%">Opened other windows on my computer, such as Facebook</td>
+				<td ><input questionId="openwindow" type="radio" value="0" name="openwindow"></td>
+				<td ><input questionId="openwindow" type="radio" value="1" name="openwindow"></td>
+				<td ><input questionId="openwindow" type="radio" value="3" name="openwindow"></td>
+				<td ><input questionId="openwindow" type="radio" value="5" name="openwindow"></td>
+				<td ><input questionId="openwindow" type="radio" value="7" name="openwindow"></td>
+				<td ><input questionId="openwindow" type="radio" value="9" name="openwindow"></td>
+				<td ><input questionId="openwindow" type="radio" value="11" name="openwindow"></td>
+			</tr>
+		</tbody></table>
+			<table class="blockTable"><tbody>
+			<tr>
+				<td width="30%"></td>
+				<td width="10%">0 minutes<br>(no time)</td>
+				<td width="10%">1-2 minutes</td>
+				<td width="10%">3-4 minutes</td>
+				<td width="10%">5-6 minutes</td>
+				<td width="10%">7-8 minutes</td>
+				<td width="10%">9-10 minutes</td>
+				<td width="10%">11-12 minutes</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="30%">Checked my e-mail</td>
+				<td ><input questionId="email" type="radio" value="0" name="email"></td>
+				<td ><input questionId="email" type="radio" value="1" name="email"></td>
+				<td ><input questionId="email" type="radio" value="3" name="email"></td>
+				<td ><input questionId="email" type="radio" value="5" name="email"></td>
+				<td ><input questionId="email" type="radio" value="7" name="email"></td>
+				<td ><input questionId="email" type="radio" value="9" name="email"></td>
+				<td ><input questionId="email" type="radio" value="11" name="email"></td>
+			</tr>
+			<tr>
+				<td width="30%">Played a videogame </td>
+				<td ><input questionId="videogame" type="radio" value="0" name="videogame"></td>
+				<td ><input questionId="videogame" type="radio" value="1" name="videogame"></td>
+				<td ><input questionId="videogame" type="radio" value="3" name="videogame"></td>
+				<td ><input questionId="videogame" type="radio" value="5" name="videogame"></td>
+				<td ><input questionId="videogame" type="radio" value="7" name="videogame"></td>
+				<td ><input questionId="videogame" type="radio" value="9" name="videogame"></td>
+				<td ><input questionId="videogame" type="radio" value="11" name="videogame"></td>
+			</tr>
+			<tr>
+				<td width="30%">Read a book or magazine for fun </td>
+				<td ><input questionId="read" type="radio" value="0" name="read"></td>
+				<td ><input questionId="read" type="radio" value="1" name="read"></td>
+				<td ><input questionId="read" type="radio" value="3" name="read"></td>
+				<td ><input questionId="read" type="radio" value="5" name="read"></td>
+				<td ><input questionId="read" type="radio" value="7" name="read"></td>
+				<td ><input questionId="read" type="radio" value="9" name="read"></td>
+				<td ><input questionId="read" type="radio" value="11" name="read"></td>
+			</tr>
+			<tr>
+				<td width="30%">Worked on a puzzle (e.g., a crossword or sudoku puzzle)</td>
+				<td ><input questionId="puzzle" type="radio" value="0" name="puzzle"></td>
+				<td ><input questionId="puzzle" type="radio" value="1" name="puzzle"></td>
+				<td ><input questionId="puzzle" type="radio" value="3" name="puzzle"></td>
+				<td ><input questionId="puzzle" type="radio" value="5" name="puzzle"></td>
+				<td ><input questionId="puzzle" type="radio" value="7" name="puzzle"></td>
+				<td ><input questionId="puzzle" type="radio" value="9" name="puzzle"></td>
+				<td ><input questionId="puzzle" type="radio" value="11" name="puzzle"></td>
+			</tr>
+			<tr>
+				<td width="30%">Watched television or a movie</td>
+				<td ><input questionId="tvmovie" type="radio" value="0" name="tvmovie"></td>
+				<td ><input questionId="tvmovie" type="radio" value="1" name="tvmovie"></td>
+				<td ><input questionId="tvmovie" type="radio" value="3" name="tvmovie"></td>
+				<td ><input questionId="tvmovie" type="radio" value="5" name="tvmovie"></td>
+				<td ><input questionId="tvmovie" type="radio" value="7" name="tvmovie"></td>
+				<td ><input questionId="tvmovie" type="radio" value="9" name="tvmovie"></td>
+				<td ><input questionId="tvmovie" type="radio" value="11" name="tvmovie"></td>
+			</tr>
+			<tr>
+				<td width="30%">Listened to music or the radio</td>
+				<td ><input questionId="music" type="radio" value="0" name="music"></td>
+				<td ><input questionId="music" type="radio" value="1" name="music"></td>
+				<td ><input questionId="music" type="radio" value="3" name="music"></td>
+				<td ><input questionId="music" type="radio" value="5" name="music"></td>
+				<td ><input questionId="music" type="radio" value="7" name="music"></td>
+				<td ><input questionId="music" type="radio" value="9" name="music"></td>
+				<td ><input questionId="music" type="radio" value="11" name="music"></td>
+			</tr>
+			<tr>
+				<td width="30%">Did work or schoolwork </td>
+				<td ><input questionId="work" type="radio" value="0" name="work"></td>
+				<td ><input questionId="work" type="radio" value="1" name="work"></td>
+				<td ><input questionId="work" type="radio" value="3" name="work"></td>
+				<td ><input questionId="work" type="radio" value="5" name="work"></td>
+				<td ><input questionId="work" type="radio" value="7" name="work"></td>
+				<td ><input questionId="work" type="radio" value="9" name="work"></td>
+				<td ><input questionId="work" type="radio" value="11" name="work"></td>
+			</tr>
+			<tr>
+				<td width="30%">Wrote things or doodled on paper</td>
+				<td ><input questionId="write" type="radio" value="0" name="write"></td>
+				<td ><input questionId="write" type="radio" value="1" name="write"></td>
+				<td ><input questionId="write" type="radio" value="3" name="write"></td>
+				<td ><input questionId="write" type="radio" value="5" name="write"></td>
+				<td ><input questionId="write" type="radio" value="7" name="write"></td>
+				<td ><input questionId="write" type="radio" value="9" name="write"></td>
+				<td ><input questionId="write" type="radio" value="11" name="write"></td>
+			</tr>
+			<tr>
+				<td width="30%">Talked with someone</td>
+				<td ><input questionId="talk" type="radio" value="0" name="talk"></td>
+				<td ><input questionId="talk" type="radio" value="1" name="talk"></td>
+				<td ><input questionId="talk" type="radio" value="3" name="talk"></td>
+				<td ><input questionId="talk" type="radio" value="5" name="talk"></td>
+				<td ><input questionId="talk" type="radio" value="7" name="talk"></td>
+				<td ><input questionId="talk" type="radio" value="9" name="talk"></td>
+				<td ><input questionId="talk" type="radio" value="11" name="talk"></td>
+			</tr>
+		</tbody></table>
+			<p class="note">Need to save data still</p>
+			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+		</div>
+
+		<div class="zen-slide" id="questions3">
+			<p class="question-text">
+				During the Free Time Period, were you alone or was someone else in the room?
+			</p>
+			<table><tbody><tr>
+				<td width="33%">I was alone</td>
+				<td width="33%">Someone else was there for part of the time</td>
+				<td width="33%">Someone else was there the entire time Very much</td>
+			</tr>
+			<tr>
+				<td><input questionId="people-around" type="radio" value="alone" name="people-around"></td>
+				<td><input questionId="people-around" type="radio" value="parttime" name="people-around"></td>
+				<td><input questionId="people-around" type="radio" value="fulltime" name="people-around"></td>
+			</tr></tbody></table>
+			<p class="note">Need to save data still</p>
+			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+		</div>
+
+		<div class="zen-slide" id="questions4">
+			<p class="question-text">
+				Did anything else occur during the free period that disrupted you?
+			</p>
+			<div class="textblock">
+				<textarea id="disruption" rows="20" cols="80"></textarea>
+			</div>
+			<p class="note">Need to save data still</p>
+			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+		</div>
+
+		<div class="zen-slide" id="questions5">
+			<p class="question-text">
+				At the beginning of the experiment, how were you told to spend your time during the Free Time Period?
+			</p>
+			<table><tbody><tr>
+				<td width="25%">Planning out the rest of my day</td>
+				<td width="25%">Entertaining myself with my thoughts as best I could</td>
+				<td width="25%">spending the time entertaining myself with one or more activities from a list</td>
+				<td width="25%">I wasn't given any instructions on how to spend the time</td>
+			</tr>
+			<tr>
+				<td><input questionId="manipCheck" type="radio" value="1" name="manipCheck"></td>
+				<td><input questionId="manipCheck" type="radio" value="2" name="manipCheck"></td>
+				<td><input questionId="manipCheck" type="radio" value="3" name="manipCheck"></td>
+				<td><input questionId="manipCheck" type="radio" value="4" name="manipCheck"></td>
+			</tr></tbody></table>
+			<p class="note">Need to save data still</p>
+			<button class="zen" type="button" onclick="endExperiment()">NEXT</button>
+		</div>
+
+		<!-- PUT Manipulation check and did anything else occur during the free period that disrupted you? (e.g. computer going to sleep?) -->
+
 		<div class="zen-slide" id="cog-task">
 			<!-- This is where we will put the go/no-go task-->
 			<!-- See http://docs.jspsych.org/tutorials/go-nogo-task/ for example -->
 		</div>
 		<div class="zen-slide" id="sc-task">
 			<!-- This is where we will put the self-control task-->
+		</div>
+		<div class="zen-slide" id="thank-you">
+			Thanks! That's the end of the study.  This window should now close automatically in a few seconds.
 		</div>
 
 

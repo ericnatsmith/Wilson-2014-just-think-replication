@@ -30,10 +30,19 @@ var randomize = function(){ // randomize to condition
   $(document).scrollTop(0);// go to top of page
 };
 
+var hideHiddenEnable = function(){
+  $(".hideToShow").hide();
+  $("button").removeAttr("disabled");
+}
+
+var showHidden = function(){
+  $(".hideToShow").show();
+}
+
 var startFreePeriod = function(){
   $z.showSlide("free-period"); // show free period
   wait(10000, function(){
-    $(".hideToShow").show(); // wait X to enable button
+    showHidden(); // wait X to enable button
   }) 
   wait(15000, function(){
     startQuestions(); // wait X milliseconds then go onto next questions automatically

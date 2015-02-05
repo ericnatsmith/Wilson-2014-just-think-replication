@@ -22,18 +22,17 @@
 				<p>
 					Are all devices that could possibly distract you turned off in your room? (This includes phones, televisions, radios, iTunes, and anything else that could potentially distract you).
 				</p>
-				<input type="radio" name="devices" value="off">YES<br>
-				<input type="radio" name="devices" value="on">NO
-				<p class="note"> 
-					Make this as a warning until they click yes.
-				</p>
-				<p>
-					You have indicated that you have not turned off all devices in your room that could potentially distract you. Please take the time to do so now, as it is very important that you are not distracted during the remainder of the study.
-				</p>
-				<p>
-					Please click 'Yes' above when you have finished turning off all devices.
-				</p>
-				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+				<input type="radio" name="devices" value="off" onclick="hideHiddenEnable()">YES<br>
+				<input type="radio" name="devices" value="on" onclick="showHidden()">NO<br>
+				<div class="hideToShow warning">
+					<p>
+						You have indicated that you have not turned off all devices in your room that could potentially distract you. Please take the time to do so now, as it is very important that you are not distracted during the remainder of the study.
+					</p>
+					<p>
+						Please click 'Yes' above when you have finished turning off all devices.
+					</p>
+				</div>
+				<button class="zen" type="button" onclick="nextInstruction()" disabled="disabled">NEXT</button>
 				
 			</div>
 		</div>

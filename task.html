@@ -24,6 +24,7 @@
 				</p>
 				<input type="radio" name="devices" value="off" onclick="hideHiddenEnable('deviceCheck')">YES<br>
 				<input type="radio" name="devices" value="on" onclick="showHiddenDisable('deviceCheck')">NO<br>
+				<button id="deviceCheck" class="zen" type="button" onclick="nextInstruction()" disabled=>NEXT</button>
 				<div class="hideToShow warning">
 					<p>
 						You have indicated that you have not turned off all devices in your room that could potentially distract you. Please take the time to do so now, as it is very important that you are not distracted during the remainder of the study.
@@ -32,8 +33,6 @@
 						Please click 'Yes' above when you have finished turning off all devices.
 					</p>
 				</div>
-				<button id="deviceCheck" class="zen" type="button" onclick="nextInstruction()" disabled=>NEXT</button>
-				
 			</div>
 		</div>
 
@@ -42,8 +41,9 @@
 				<p>
 					Are you currently alone in your room?
 				</p>
-				<input type="radio" name="alone" value="yes" onclick="hideHiddenEnable()">YES<br>
-				<input type="radio" name="alone" value="no" onclick="showHidden()">NO<br>
+				<input type="radio" name="alone" value="yes" onclick="hideHiddenEnable('aloneCheck')">YES<br>
+				<input type="radio" name="alone" value="no" onclick="showHiddenDisable('aloneCheck')">NO<br>
+				<button id="aloneCheck" class="zen" type="button" onclick="nextInstruction()" disabled="disabled">NEXT</button>
 				<div class="hideToShow warning">
 					<p>
 						Please close this webpage and complete this activity during a time in which you are alone in your room, as it is VERY important that you are in your room alone during the entirety of the study.
@@ -52,7 +52,6 @@
 						Please do not click 'Yes' above unless you find a place to be alone for 15 minutes.
 					</p>
 				</div>
-				<button class="zen" type="button" onclick="nextInstruction()" disabled="disabled">NEXT</button>
 			</div>
 		</div>
 		<div class="zen-slide" id="instructions3">
@@ -297,30 +296,29 @@
 				<p>
 					Are you ready to do the entertaining activities you chose?
 				</p>
-				<input type="radio" name="ready" value="yes">YES<br>
-				<input type="radio" name="ready" value="no">NO<br>
-				<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
-				<p class="note"> 
-					Make this as a warning until they click yes.
-				</p>
-				<p><b>
-					You have indicated that you are not ready to do the entertaining activities that you have chosen.
-				</b></p>
-				<p>
-					Please get ready now by gathering the activities you will be doing (e.g., get ready to watch your movie, or get your reading materials, music, videogames or puzzles ready).
-				</p>
-				<p>
-					Click '>>' when you are ready to do the activities that you have chosen.
-				</p>
+				<input type="radio" name="ready" value="yes" onclick="hideHiddenEnable('readyCheck')">YES<br>
+				<input type="radio" name="ready" value="no" onclick="showHiddenDisable('readyCheck')">NO<br>
+				<button  id="readyCheck" class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+				<div class="hideToShow warning">
+					<p><b>
+						You have indicated that you are not ready to do the entertaining activities that you have chosen.
+					</b></p>
+					<p>
+						Please get ready now by gathering the activities you will be doing (e.g., get ready to watch your movie, or get your reading materials, music, videogames or puzzles ready).
+					</p>
+					<p>
+						Click 'Yes' when you are ready to do the activities that you have chosen.
+					</p>
+				</div>
 			</div>
 		</div>
 		<div class="zen-slide" id="inst-active5">
 			<div class="zen-slide-center">
 				<p>
-					When you click '>>' below, the screen will go blank for 10-15 minutes while you entertain yourself with one or more of the activities you chose (during this time, your browser may automatically refresh the screen once or twice). After that, you will hear a beep and some additional questions will appear on the screen.  At that point, please stop the activity you were doing and answer the questions.
+					When you click 'Next' below, the screen will go blank for 10-15 minutes while you entertain yourself with one or more of the activities you chose (during this time, your browser may automatically refresh the screen once or twice). After that, you will hear a beep and some additional questions will appear on the screen.  At that point, please stop the activity you were doing and answer the questions.
 				</p>
 				<p>
-					Click '>>' when you are ready to begin the "Free Time" Period.
+					Click 'Next' when you are ready to begin the "Free Time" Period.
 				</p>
 				<button class="zen" type="button" onclick="startFreePeriod()">NEXT</button>
 			</div>
@@ -659,18 +657,24 @@
 			<p class="question-text">
 				At the beginning of the experiment, how were you told to spend your time during the Free Time Period?
 			</p>
-			<table><tbody><tr>
-				<td width="25%">Planning out the rest of my day</td>
-				<td width="25%">Entertaining myself with my thoughts as best I could</td>
-				<td width="25%">spending the time entertaining myself with one or more activities from a list</td>
-				<td width="25%">I wasn't given any instructions on how to spend the time</td>
+			<table><tbody>
+				<tr>
+				<td width="4%"><input questionId="manipCheck" type="radio" value="1" name="manipCheck"></td>
+				<td width="60%" class="left-align">Planning out the rest of my day</td>
 			</tr>
 			<tr>
-				<td><input questionId="manipCheck" type="radio" value="1" name="manipCheck"></td>
-				<td><input questionId="manipCheck" type="radio" value="2" name="manipCheck"></td>
-				<td><input questionId="manipCheck" type="radio" value="3" name="manipCheck"></td>
-				<td><input questionId="manipCheck" type="radio" value="4" name="manipCheck"></td>
-			</tr></tbody></table>
+				<td width="4%"><input questionId="manipCheck" type="radio" value="2" name="manipCheck"></td>
+				<td width="60%" class="left-align">Entertaining myself with my thoughts as best I could</td>
+			</tr>
+			<tr>
+				<td width="4%"><input questionId="manipCheck" type="radio" value="3" name="manipCheck"></td>
+				<td width="60%" class="left-align">Spending the time entertaining myself with one or more activities from a list</td>
+			</tr>
+			<tr>
+				<td width="4%"><input questionId="manipCheck" type="radio" value="4" name="manipCheck"></td>
+				<td width="60%" class="left-align">I wasn't given any instructions on how to spend the time</td>
+			</tr>
+		</tbody></table>
 			<p class="note">Need to save data still</p>
 			<button class="zen" type="button" onclick="endExperiment()">NEXT</button>
 		</div>

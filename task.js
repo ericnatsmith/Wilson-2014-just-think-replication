@@ -43,7 +43,7 @@ var showHiddenDisable = function(id){
 var startFreePeriod = function(){
   $z.showSlide("free-period"); // show free period
   wait(10000, function(){
-    showHidden(); // wait X to enable button
+    showHiddenDisable(" "); // wait X to enable button
   }) 
   wait(15000, function(){
     startQuestions(); // wait X milliseconds then go onto next questions automatically

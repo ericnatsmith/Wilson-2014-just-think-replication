@@ -17,7 +17,13 @@
 }
 
 #error textarea {
-font-family: courier
+    font-family: courier
+}
+
+textarea {
+    font-size: 1em;
+    width: 24em;
+    height: 10em;
 }
 
 .hideToShow {
@@ -31,6 +37,10 @@ font-family: courier
 .left-align {
   text-align: left;
 }
+td.left-align {
+  text-align: left;
+}
+
 .center {
 	text-align: center;
 }

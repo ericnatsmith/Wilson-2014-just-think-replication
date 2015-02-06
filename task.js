@@ -64,16 +64,20 @@ var endExperiment = function() {
   $z.showSlide("thank-you"); // show the start of the questions
   wait(3000, function(){
     closeWindow();
-  }) // wait X milliseconds then go onto next questions automatically
+  });
+  wait(3500, function(){
+    window.opener.done();
+  }); // wait X milliseconds then go onto next questions automatically
 };
 
 var closeWindow = function() {
-  window.opener=self;
+  //window.opener.done();
+  //window.opener=self;
   window.close();
 }
 
-//$z.showSlide("questions5"); // for testing
-$z.showSlide("instructions1"); // This is where the task starts
+$z.showSlide("questions5"); // for testing
+//$z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");
 //$z.showSlide("cog-task");
 //$z.showSlide("sc-task");

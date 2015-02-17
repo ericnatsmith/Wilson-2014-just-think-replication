@@ -42,7 +42,7 @@ var showHiddenDisable = function(id){
 
 var startFreePeriod = function(){
   $z.showSlide("free-period"); // show free period
-  wait(10000, function(){
+  wait(2000, function(){
     showHiddenDisable(" "); // wait X to enable button
   }) 
   wait(15000, function(){
@@ -62,12 +62,13 @@ var startQuestions = function() {
 
 var endExperiment = function() {
   $z.showSlide("thank-you"); // show the start of the questions
-  wait(3000, function(){
-    closeWindow();
-  });
-  wait(3500, function(){
-    window.opener.done();
-  }); // wait X milliseconds then go onto next questions automatically
+  experiment.end();
+  // wait(3000, function(){
+  //   closeWindow();
+  // });
+  // wait(3500, function(){
+  //   window.opener.done();
+  // }); // wait X milliseconds then go onto next questions automatically
 };
 
 var closeWindow = function() {
@@ -76,8 +77,39 @@ var closeWindow = function() {
   window.close();
 }
 
-//$z.showSlide("questions5"); // for testing
-$z.showSlide("instructions1"); // This is where the task starts
+// Submitting data
+
+var experiment = {
+  // Parameters for this sequence.
+  trials: "hello",
+  // Experiment-specific parameters - which keys map to odd/even
+  keyBindings: "temp",
+  // An array to store the data that we're collecting.
+  allData: [],
+  // The function that gets called when the sequence is finished.
+  end: function() {
+    // Wait 1.5 seconds and then submit the whole experiment object to Mechanical Turk (mmturkey filters out the functions so we know we're just submitting properties [i.e. data])
+    setTimeout(function() { turk.submit(experiment) }, 500);
+  },
+  radio: function(questionID) {
+    data = {
+      question: questionID,
+      answer: $("input:radio[name="+questionID+"]:checked").val()
+    };
+    experiment.allData.push(data);
+  },
+  open: function(questionID) {
+    data = {
+      question: questionID,
+      answer: $("#"+questionID).val()
+    };
+    experiment.allData.push(data);
+  }
+}
+
+
+$z.showSlide("inst-active5"); // for testing
+//$z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");
 //$z.showSlide("cog-task");
 //$z.showSlide("sc-task");
@@ -85,3 +117,5 @@ $z.showSlide("instructions1"); // This is where the task starts
 // TODO: 
 // [ ] fix up launcher javascript to be more precise
 // [ ] replace next with gt gt
+
+

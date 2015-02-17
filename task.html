@@ -419,7 +419,9 @@
 				<td width="11%"><input questionId="concentrate" type="radio" value="9" name="concentrate"></td>
 			</tr></tbody></table>
 			<p class="note">Need to save data still</p>
-			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+			<button class="zen" type="button" onclick="
+			experiment.radio(['enjoy','wander','concentrate']);
+			nextInstruction()">NEXT</button>
 		</div>
 
 	<div class="zen-slide" id="questions2">
@@ -622,7 +624,9 @@
 			</tr>
 		</tbody></table>
 			<p class="note">Need to save data still</p>
-			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+			<button class="zen" type="button" onclick="
+			experiment.radio(['asleep','phonetalk','phonetext','phonegame','imchat','openwindow','email','videogame','read','puzzle','tvmovie','music','work','write','talk']);
+			nextInstruction()">NEXT</button>
 		</div>
 
 		<div class="zen-slide" id="questions3">
@@ -640,7 +644,9 @@
 				<td><input questionId="people-around" type="radio" value="fulltime" name="people-around"></td>
 			</tr></tbody></table>
 			<p class="note">Need to save data still</p>
-			<button class="zen" type="button" onclick="nextInstruction()">NEXT</button>
+			<button class="zen" type="button" onclick="
+			experiment.radio(['people-around']);
+			nextInstruction()">NEXT</button>
 		</div>
 
 		<div class="zen-slide" id="questions4">
@@ -651,7 +657,9 @@
 				<textarea id="disruption" rows="20" cols="80"></textarea>
 			</div>
 			<p class="note">Need to save data still</p>
-			<button class="zen" type="button" onclick="experiment.open('disruption');nextInstruction()">NEXT</button>
+			<button class="zen" type="button" onclick="
+			experiment.open('disruption');
+			nextInstruction()">NEXT</button>
 		</div>
 
 		<div class="zen-slide" id="questions5">
@@ -677,7 +685,9 @@
 			</tr>
 		</tbody></table>
 			<p class="note">Need to save data still</p>
-			<button class="zen" type="button" onclick="experiment.radio('manipCheck');endExperiment()">NEXT</button>
+			<button class="zen" type="button" onclick="
+			experiment.radio(['manipCheck']);
+			endExperiment()">NEXT</button>
 		</div>
 
 		<!-- PUT Manipulation check and did anything else occur during the free period that disrupted you? (e.g. computer going to sleep?) -->

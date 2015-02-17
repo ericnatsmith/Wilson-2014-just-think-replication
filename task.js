@@ -91,12 +91,14 @@ var experiment = {
     // Wait 1.5 seconds and then submit the whole experiment object to Mechanical Turk (mmturkey filters out the functions so we know we're just submitting properties [i.e. data])
     setTimeout(function() { turk.submit(experiment) }, 500);
   },
-  radio: function(questionID) {
-    data = {
-      question: questionID,
-      answer: $("input:radio[name="+questionID+"]:checked").val()
-    };
-    experiment.allData.push(data);
+  radio: function(questionIDs) {
+    $.each(questionIDs, function(index,value) {
+      data = {
+        question: value,
+        answer: $("input:radio[name="+value+"]:checked").val()
+      };
+      experiment.allData.push(data);
+    });
   },
   open: function(questionID) {
     data = {

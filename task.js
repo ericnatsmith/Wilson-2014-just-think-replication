@@ -23,9 +23,10 @@ var randomize = function(){ // randomize to condition
     conditionSet = "active";
     instructionPart = "inst-active";
   }
+  experiment.recordCond(conditionSet);
   instructionCount = 1; // reset instruction count
-  console.log(instructionPart); // check
-  console.log(instructionCount); // check
+  // console.log(instructionPart); // check
+  // console.log(instructionCount); // check
   $z.showSlide(instructionPart + instructionCount); // and show slides
   $(document).scrollTop(0);// go to top of page
 };
@@ -123,6 +124,7 @@ var experiment = {
       question: "condition",
       answer: condition
     };
+    experiment.allData.push(data);
   }
 }
 

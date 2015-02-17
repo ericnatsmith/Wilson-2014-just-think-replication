@@ -43,6 +43,9 @@ td.left-align {
 
 .center {
 	text-align: center;
+    margin-left: auto; 
+    margin-right: auto;
+    display: block;
 }
 
 .note {
@@ -69,4 +72,8 @@ p.question-text {
 
 .blockTable tr:nth-child(even) {
     background: #dddddd;
+}
+
+#logo {
+    width: 120;
 }

@@ -38,17 +38,20 @@ var hideHiddenEnable = function(id){
 
 var showHiddenDisable = function(id){
   $(".hideToShow").show();
-  $("#" + id).attr("disabled",true);
+  if(id) {
+    $("#" + id).attr("disabled",true);
+  }
 }
 
 var startFreePeriod = function(){
   $z.showSlide("free-period"); // show free period
   wait(2000, function(){
-    showHiddenDisable(" "); // wait X to enable button
-  }) 
+    snd.play(); // beep
+    showHiddenDisable(); // wait X to enable button
+  }); 
   wait(15000, function(){
     startQuestions(); // wait X milliseconds then go onto next questions automatically
-  })
+  });
   $(document).scrollTop(0);// go to top of page
 };
 
@@ -124,8 +127,9 @@ var experiment = {
   }
 }
 
-var lastTime = new Date();
+var lastTime = new Date(); // initialize time on load
 
+var snd = new Audio("audio/beep.wav"); // buffers automatically when created
 
 //$z.showSlide("questions5"); // for testing
 $z.showSlide("instructions1"); // This is where the task starts

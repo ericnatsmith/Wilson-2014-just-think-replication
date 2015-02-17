@@ -117,7 +117,7 @@ var experiment = {
     lastTime = recordTime; // replace the last time
 
     experiment.allData.push(data);
-  }.
+  },
   recordCond: function(condition) {
     data = {
       question: "condition",
@@ -129,8 +129,8 @@ var experiment = {
 var lastTime = new Date();
 
 
-$z.showSlide("questions5"); // for testing
-//$z.showSlide("instructions1"); // This is where the task starts
+//$z.showSlide("questions5"); // for testing
+$z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");
 //$z.showSlide("cog-task");
 //$z.showSlide("sc-task");

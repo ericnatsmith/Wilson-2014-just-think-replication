@@ -106,11 +106,30 @@ var experiment = {
       answer: $("#"+questionID).val()
     };
     experiment.allData.push(data);
+  },
+  getTime: function(pageID) {
+    recordTime = new Date(); // record the newest time
+    diffTime = recordTime - lastTime; // record the difference from last time
+    data = {
+      question: "time_"+pageID,
+      answer: diffTime
+    };
+    lastTime = recordTime; // replace the last time
+
+    experiment.allData.push(data);
+  }.
+  recordCond: function(condition) {
+    data = {
+      question: "condition",
+      answer: condition
+    };
   }
 }
 
+var lastTime = new Date();
 
-$z.showSlide("inst-active5"); // for testing
+
+$z.showSlide("questions5"); // for testing
 //$z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("question1");
 //$z.showSlide("cog-task");

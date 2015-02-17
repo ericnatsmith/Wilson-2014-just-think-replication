@@ -81,10 +81,6 @@ var closeWindow = function() {
 // Submitting data
 
 var experiment = {
-  // Parameters for this sequence.
-  trials: "hello",
-  // Experiment-specific parameters - which keys map to odd/even
-  keyBindings: "temp",
   // An array to store the data that we're collecting.
   allData: [],
   // The function that gets called when the sequence is finished.

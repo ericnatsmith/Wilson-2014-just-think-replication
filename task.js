@@ -52,6 +52,7 @@ var startFreePeriod = function(){
   wait(15000, function(){
     startQuestions(); // wait X milliseconds then go onto next questions automatically
   });
+  checkIt();
   $(document).scrollTop(0);// go to top of page
 };
 
@@ -79,6 +80,22 @@ var closeWindow = function() {
   //window.opener.done();
   //window.opener=self;
   window.close();
+}
+
+// checking window size every 30 seconds
+
+ //code goes here that will be run every 1 second (note-  should be changed to 30)
+
+function checkIt(){
+  nCheck = 1
+  var myTimer = setInterval(function(){ 
+        if(instructionPart != "questions") { // if you're not at questions yet...
+          experiment.recordWindow("windowCheck_" + nCheck);
+        } else {
+          clearInterval(myTimer);
+        }
+        nCheck ++;
+  }, 1000);
 }
 
 // Submitting data
@@ -124,7 +141,16 @@ var experiment = {
       answer: condition
     };
     experiment.allData.push(data);
-  }
+  },
+  recordWindow: function(name) {
+    var windowHeight = $(window).height();
+    var windowWidth = $(window).width();
+    data = {
+      question: "windowSize_" + name,
+      answer: windowHeight + " by " + windowWidth
+    };
+    experiment.allData.push(data);
+  },
 }
 
 var lastTime = new Date(); // initialize time on load
@@ -140,5 +166,6 @@ $z.showSlide("instructions1"); // This is where the task starts
 // TODO: 
 // [ ] fix up launcher javascript to be more precise
 // [ ] replace next with gt gt
+// [ ] binned randomized group?
 
 

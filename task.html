@@ -69,14 +69,8 @@
 				<p>
 					(2) If the screen is not maximized, please maximize this screen on your computer so that everything will display properly.
 				</p>
-				<p class="note">
-					Record the size of the screen to make sure it is the same size across all screens
-				</p>
 				<p>
 					(3) Please make sure the sound on your computer is turned on, because later on there will be a beep indicating that there are some questions to anwer.
-				</p>
-				<p class="note">
-					Add sound to this setup.
 				</p>
 				<p>
 					Please click 'Next' when you have taken care of these two things.
@@ -108,9 +102,6 @@
 					</li>
 				</ul>
 				<p>Click 'Next'for further instructions.</p>
-				<p class="note">
-					Can we do binned randomize to get equal bin sizes?
-				</p>
 				<button class="zen" type="button" onclick="
 				experiment.getTime('instruction4');
 				randomize()">NEXT</button>
@@ -149,10 +140,10 @@
 					You don't have to only think about these items that you write down, but you can keep the list by you during the Free Time Period for your reference.
 				</p>
 				<div class="textblock">
-					<textarea id="think-plan" rows="20" cols="80"></textarea>
+					<textarea id="think-plan" rows="20" cols="80" placeholder="Activity 1 &#010;Activity 2 &#010;Activity 3 &#010;etc."></textarea>
 				</div>
-				<p class="note">Put activity 1, 2, 3 as grayed out text as filler</p>
 				<button class="zen" type="button" onclick="
+				experiment.open('think-plan');
 				experiment.getTime('inst-think2');
 				nextInstruction()">NEXT</button>
 			</div>
@@ -353,7 +344,7 @@
 		<div class="zen-slide" id="free-period">
 			<div class="zen-slide-center">
 				<p class="note">
-					This will be a blank screen for 12 minutes. It will be recording the screen size and whether this is the active window every thirty seconds.  
+					This will be a blank screen for 12 minutes. It will be recording the screen size and whether this is the active window every thirty seconds.  I don't want to bore you for that long...
 				</p>
 				<p class="note">
 					For testing, the delay has been set for 2 seconds to allow next button press (at 12 minutes in task), and automatically move on after 15 seconds (at 13 minutes in task)
@@ -363,6 +354,7 @@
 				</p>
 
 				<button class="zen hideToShow" type="button" onclick="
+				experiment.recordWindow('free-end');
 				experiment.getTime('free-period');
 				startQuestions()">NEXT</button>
 			</div>

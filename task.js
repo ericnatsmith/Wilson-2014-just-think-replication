@@ -73,7 +73,7 @@ var endExperiment = function() {
   // });
   // wait(3500, function(){
   //   window.opener.done();
-  // }); // wait X milliseconds then go onto next questions automatically
+  // }); // wait X milliseconds then go back to the prior page
 };
 
 var closeWindow = function() {
@@ -172,9 +172,8 @@ $z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("sc-task");
 
 // TODO: 
-// [ ] fingerprint
-// [ ] fix up launcher javascript to be more precise
-// [ ] replace next with gt gt
+// [ ] Put launcher into Mturk and test it.
+// [ ] Transfer data to launch screen
 // [ ] binned randomized group?
 
 

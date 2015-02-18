@@ -50,4 +50,5 @@ var experiment = {
   end: function() {
     // Wait 1.5 seconds and then submit the whole experiment object to Mechanical Turk (mmturkey filters out the functions so we know we're just submitting properties [i.e. data])
     setTimeout(function() { turk.submit(experimentData) }, 1500);
-  },
+  }
+}

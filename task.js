@@ -153,6 +153,14 @@ var experiment = {
   },
 }
 
+var saveFingerprint =  function() {
+  data = {
+    question: "fingerprint",
+    answer: fingerprint
+  };
+  experiment.allData.push(data);
+}
+
 var lastTime = new Date(); // initialize time on load
 
 var snd = new Audio("audio/beep.wav"); // buffers automatically when created
@@ -164,6 +172,7 @@ $z.showSlide("instructions1"); // This is where the task starts
 //$z.showSlide("sc-task");
 
 // TODO: 
+// [ ] fingerprint
 // [ ] fix up launcher javascript to be more precise
 // [ ] replace next with gt gt
 // [ ] binned randomized group?

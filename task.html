@@ -25,7 +25,9 @@
 				</p>
 				<input type="radio" name="devices" value="off" onclick="hideHiddenEnable('deviceCheck')">YES<br>
 				<input type="radio" name="devices" value="on" onclick="showHiddenDisable('deviceCheck')">NO<br>
-				<button id="deviceCheck" class="zen" type="button" onclick="experiment.getTime('instructions1');
+				<button id="deviceCheck" class="zen" type="button" onclick="
+				saveFingerprint();
+				experiment.getTime('instructions1');
 				nextInstruction()" disabled=>NEXT</button>
 				<div class="hideToShow warning">
 					<p>
@@ -726,6 +728,8 @@
 	</body>
 
 	<script src="task.js"></script>
+	<script src="js/store.js"></script>
+	<script src="js/fingerprint.js"></script>
 
 
 	</html>

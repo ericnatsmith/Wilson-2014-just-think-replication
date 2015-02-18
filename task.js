@@ -68,17 +68,13 @@ var startQuestions = function() {
 var endExperiment = function() {
   $z.showSlide("thank-you"); // show the start of the questions
   experiment.end();
-  // wait(3000, function(){
-  //   closeWindow();
-  // });
-  // wait(3500, function(){
-  //   window.opener.done();
-  // }); // wait X milliseconds then go back to the prior page
+  wait(3000, function(){
+    closeWindow();
+  });
 };
 
 var closeWindow = function() {
-  //window.opener.done();
-  //window.opener=self;
+  window.opener.done();
   window.close();
 }
 

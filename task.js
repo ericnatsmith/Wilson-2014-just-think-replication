@@ -71,14 +71,9 @@ var endExperiment = function() {
   window.opener.experiment.end(); // call the experiment end in parent window
 
   wait(5000, function(){
-    closeWindow();
+    window.close();
   });
 };
-
-var closeWindow = function() {
-  window.opener.done();
-  window.close();
-}
 
 // checking window size every 30 seconds
 

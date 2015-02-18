@@ -11,7 +11,7 @@ var fsIE6 = function(paramString) {
 
 $(document).ready(function() {
   window.opener = self;
-  if (typeof urlParams["pid"] == "undefined") {
+  if (typeof urlParams["hitId"] == "undefined") {
     $("#manual-id").keyup(function() {
       if ($(this).val().length > 0) {
         $("#launch-screen button").removeAttr("disabled");
@@ -23,7 +23,7 @@ $(document).ready(function() {
     $("#launch-screen button").one("click", function() {
       var id = $("#manual-id").val();
 
-      var newUrlDefines = paramString + "&pid=" + id;
+      var newUrlDefines = paramString + "&hitId=" + id;
       log(newUrlDefines);
       fsIE6(newUrlDefines);
       
@@ -38,6 +38,11 @@ $(document).ready(function() {
     });
     $("#launch").show();
   }
+
+  $("#enter-id").hide();
+  $('#logo').click(function () {
+      $("#enter-id").show();
+  });
 });
 
 var done = function() {

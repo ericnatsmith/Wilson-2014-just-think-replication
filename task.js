@@ -159,7 +159,8 @@ var saveFingerprint =  function() {
 
 var lastTime = new Date(); // initialize time on load
 
-var snd = new Audio("audio/beep.wav"); // buffers automatically when created
+// this gets annoying really quick...
+//var snd = new Audio("audio/beep.wav"); // buffers automatically when created
 
 //$z.showSlide("questions5"); // for testing
 $z.showSlide("instructions1"); // This is where the task starts

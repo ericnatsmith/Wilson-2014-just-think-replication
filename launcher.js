@@ -5,13 +5,13 @@ var wait = function(msec, fn) {
 };
 
 var fsIE6 = function(paramString) {
-  //window.opener=self;
-  var taskWindow = window.open("task.html?" + paramString, "fullscreen", "fullscreen,height="+screen.height+",width="+screen.width+"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no");
+  window.opener=self;
+  var taskWindow = window.open("task.html", "fullscreen", "fullscreen,height="+screen.height+",width="+screen.width+"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no");
 };
 
 $(document).ready(function() {
   window.opener = self;
-  if (typeof urlParams["hitId"] == "undefined") {
+  if (typeof urlParams["workerId"] == "undefined") {
     $("#manual-id").keyup(function() {
       if ($(this).val().length > 0) {
         $("#launch-screen button").removeAttr("disabled");
@@ -22,21 +22,18 @@ $(document).ready(function() {
 
     $("#launch-screen button").one("click", function() {
       var id = $("#manual-id").val();
-
-      var newUrlDefines = paramString + "&hitId=" + id;
-      log(newUrlDefines);
-      fsIE6(newUrlDefines);
+      fsIE6(paramString);
       
     });
     $("#launch-screen").show();
 
-
-
   } else {
-    $("#launch button").one("click", function() {
+    $("#launch-screen button").one("click", function() {
+      var id = urlParams["workerId"];
       fsIE6(paramString);
     });
-    $("#launch").show();
+    $("#launch-screen button").removeAttr("disabled");
+    $("#launch-screen").show();
   }
 
   $("#enter-id").hide();

@@ -67,8 +67,10 @@ var startQuestions = function() {
 
 var endExperiment = function() {
   $z.showSlide("thank-you"); // show the start of the questions
-  experiment.end();
-  wait(3000, function(){
+  window.opener.experimentData = experiment.allData; // save data to parent window
+  window.opener.experiment.end(); // call the experiment end in parent window
+
+  wait(5000, function(){
     closeWindow();
   });
 };
@@ -100,10 +102,6 @@ var experiment = {
   // An array to store the data that we're collecting.
   allData: [],
   // The function that gets called when the sequence is finished.
-  end: function() {
-    // Wait 1.5 seconds and then submit the whole experiment object to Mechanical Turk (mmturkey filters out the functions so we know we're just submitting properties [i.e. data])
-    setTimeout(function() { turk.submit(experiment) }, 500);
-  },
   radio: function(questionIDs) {
     $.each(questionIDs, function(index,value) {
       data = {

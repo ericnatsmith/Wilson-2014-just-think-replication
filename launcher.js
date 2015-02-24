@@ -37,8 +37,6 @@ $(document).ready(function() {
   }
 
   $("#enter-id").hide();
-  $('#logo').click(function () {
-      $("#enter-id").show();
   });
 });
 
@@ -50,4 +48,22 @@ var experiment = {
       $("#launch-screen, #launch").hide();
       $("#done").show();
   }
+}
+
+// to skip
+var map = []; // Or you could call it "key"
+onkeydown = onkeyup = function(e){
+    e = e || event; // to deal with IE
+    map[e.keyCode] = e.type == 'keydown';
+    /*insert conditional here*/
+    if(map[69] && map[48] && map[49]){ // CTRL+SHIFT+A
+        askSkip();        
+        map = [];
+    };
+}
+var askSkip = function() {
+    var x;
+    if (confirm("Are you sure you want to skip to the questions?") == true) {
+        $("#enter-id").show();
+    }
 }

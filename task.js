@@ -45,11 +45,11 @@ var showHiddenDisable = function(id){
 
 var startFreePeriod = function(){
   $z.showSlide("free-period"); // show free period
-  wait(2000, function(){
+  wait(11*60*1000, function(){
     showHiddenDisable(); // wait X to enable button
     snd.play(); // beep
   }); 
-  wait(15000, function(){
+  wait(12*60*1000, function(){
     startQuestions(); // wait X milliseconds then go onto next questions automatically
   });
   checkIt();
@@ -71,9 +71,13 @@ var endExperiment = function() {
   window.opener.experiment.end(); // call the experiment end in parent window
 
   wait(5000, function(){
-    window.close();
+    closeWindow();
   });
 };
+
+var closeWindow = function() {
+  window.close();
+}
 
 // checking window size every 30 seconds
 
@@ -88,7 +92,7 @@ function checkIt(){
           clearInterval(myTimer);
         }
         nCheck ++;
-  }, 1000);
+  }, 10000);
 }
 
 // Submitting data
@@ -135,7 +139,7 @@ var experiment = {
     var windowHeight = $(window).height();
     var windowWidth = $(window).width();
     data = {
-      question: "windowSize_" + name,
+      question: name,
       answer: windowHeight + " by " + windowWidth
     };
     experiment.allData.push(data);
@@ -151,6 +155,25 @@ var saveFingerprint =  function() {
 }
 
 var lastTime = new Date(); // initialize time on load
+
+// get multiple key press.
+var map = []; // Or you could call it "key"
+onkeydown = onkeyup = function(e){
+    e = e || event; // to deal with IE
+    map[e.keyCode] = e.type == 'keydown';
+    /*insert conditional here*/
+    if(map[69] && map[48] && map[49]){ // CTRL+SHIFT+A
+        askSkip();        
+        map = [];
+    };
+}
+var askSkip = function() {
+    var x;
+    if (confirm("Are you sure you want to skip to the questions?") == true) {
+        startQuestions();
+    }
+}
+
 
 // this gets annoying really quick...
 //var snd = new Audio("audio/beep.wav"); // buffers automatically when created

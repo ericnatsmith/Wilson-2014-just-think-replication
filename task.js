@@ -83,14 +83,26 @@ var closeWindow = function() {
 
  //code goes here that will be run every 1 second (note-  should be changed to 30)
 
+var isActive = true;
+
 function checkIt(){
   nCheck = 1
   var myTimer = setInterval(function(){ 
         if(instructionPart != "questions") { // if you're not at questions yet...
           experiment.recordWindow("windowCheck_" + nCheck);
+
+          window.onfocus = function () { 
+            isActive = true; 
+          }; 
+
+          window.onblur = function () { 
+            isActive = false; 
+          }; 
+
         } else {
           clearInterval(myTimer);
         }
+        console.log(isActive);
         nCheck ++;
   }, 10000);
 }
@@ -140,7 +152,7 @@ var experiment = {
     var windowWidth = $(window).width();
     data = {
       question: name,
-      answer: windowHeight + " by " + windowWidth
+      answer: windowHeight + " by " + windowWidth + "; active=" + isActive
     };
     experiment.allData.push(data);
   },

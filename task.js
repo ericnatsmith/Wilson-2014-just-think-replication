@@ -188,7 +188,7 @@ var askSkip = function() {
 
 
 // this gets annoying really quick...
-//var snd = new Audio("audio/beep.wav"); // buffers automatically when created
+var snd = new Audio("audio/beep.wav"); // buffers automatically when created
 
 //$z.showSlide("questions5"); // for testing
 $z.showSlide("instructions1"); // This is where the task starts

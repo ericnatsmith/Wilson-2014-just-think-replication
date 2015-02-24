@@ -37,7 +37,6 @@ $(document).ready(function() {
   }
 
   $("#enter-id").hide();
-  });
 });
 
 
@@ -63,7 +62,5 @@ onkeydown = onkeyup = function(e){
 }
 var askSkip = function() {
     var x;
-    if (confirm("Are you sure you want to skip to the questions?") == true) {
-        $("#enter-id").show();
-    }
+    $("#enter-id").show();
 }

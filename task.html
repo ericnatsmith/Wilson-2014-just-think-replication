@@ -103,7 +103,7 @@
 						Third, you will answer some questions on the computer.
 					</li>
 				</ul>
-				<p>Click 'Next'for further instructions.</p>
+				<p>Click 'Next' for further instructions.</p>
 				<button class="zen" type="button" onclick="
 				experiment.getTime('instruction4');
 				randomize()">NEXT</button>
@@ -206,7 +206,7 @@
 					Feel free to switch from one activity to another if you want.  You may also do more than one at once (e.g., listen to music while surfing the web). The goal is to find something enjoyable to do.
 				</b></p>
 				<p>
-					Remember, your goal should be to have a pleasant experience, as opposed to spending the time focusing on everyday activities or doing school work.
+					Remember, your goal should be to have a pleasant experience, as opposed to spending the time focusing on everyday activities or doing work.
 				</p>
 				<p>
 					Click 'Next' for further instructions.
@@ -257,12 +257,16 @@
 					</li>
 				</ul>
 				<p> 
-					Please jot down the three activities from this list, that you may enjoy doing during the Free Time Period, on your paper using the paper and pen that you gathered. Then, briefly summarize these activities in the box below.
+					Please jot down the three activities from this list that you may enjoy doing during the Free Time Period, on your paper using the paper and pen that you gathered. Then, briefly summarize these activities in the box below.
 				</p>
 				<p>
 					You don't have to do these activities that you write down, but you can keep the list by you during the Free Time Period for your reference.
 				</p>
+				<div class="textblock">
+					<textarea id="active-plan" rows="20" cols="80" placeholder="Activity 1 &#010;Activity 2 &#010;Activity 3 &#010;etc."></textarea>
+				</div>				
 				<button class="zen" type="button" onclick="
+				experiment.open('active-plan');
 				experiment.getTime('inst-active3');
 				nextInstruction()">NEXT</button>
 			</div>

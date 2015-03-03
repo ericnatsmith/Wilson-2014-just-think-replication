@@ -2,7 +2,7 @@
 *.json
 auth.json
 eric-auth.json
-!settings.json
 *.csv
 mturk-and-gmail.txt
 ignore/history.csv
+ignore/settings.json

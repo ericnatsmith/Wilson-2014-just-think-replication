@@ -76,8 +76,8 @@ wChecks <- da %>% filter(grepl("windowCheck_", variable)) %>% # get windowChecks
   summarise(num = length(unique(value)),
             falses = sum(false))
   
-#get ids that don't pass window check (moved window or not active) - should only be for think condition
-fail_window <- wChecks %>% filter(num > 1 | falses != 0)
+#get ids that don't pass window check (not active) - should only be for think condition
+fail_window <- wChecks %>% filter(falses > 6)
 fail_window <- fail_window$id
 # get rid of window checks to be more manageable data
 da <- da %>% filter(!grepl("windowCheck_", variable))

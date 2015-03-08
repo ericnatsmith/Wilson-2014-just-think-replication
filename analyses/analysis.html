@@ -180,8 +180,8 @@ table(da$id) # how many answers per participant?</code></pre>
   summarise(num = length(unique(value)),
             falses = sum(false))
   
-#get ids that don't pass window check (moved window or not active) - should only be for think condition
-fail_window &lt;- wChecks %&gt;% filter(num &gt; 1 | falses != 0)
+#get ids that don't pass window check (not active) - should only be for think condition
+fail_window &lt;- wChecks %&gt;% filter(falses &gt; 6)
 fail_window &lt;- fail_window$id
 # get rid of window checks to be more manageable data
 da &lt;- da %&gt;% filter(!grepl(&quot;windowCheck_&quot;, variable))</code></pre>

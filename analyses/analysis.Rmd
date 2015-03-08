@@ -151,7 +151,7 @@ Criteria:
 1. Participants did not spend more than 12 minutes on the task, indicating they were at their computer
 2. Participants in the thinking condition did not resize their window
 3. Participants knew what condition they were in
-4. Participants spent less than minutes on something they were not supposed to (based on condition)
+4. Participants spent less than 2 minutes on something they were not supposed to (based on condition)
 
 ```{r}
 fail_all <- unique(c(fail_time,fail_window,fail_manip,fail_cond))

@@ -248,7 +248,7 @@ fail_cond &lt;- c(fail_think,fail_active)</code></pre>
 <li>Participants did not spend more than 12 minutes on the task, indicating they were at their computer</li>
 <li>Participants in the thinking condition did not resize their window</li>
 <li>Participants knew what condition they were in</li>
-<li>Participants spent less than minutes on something they were not supposed to (based on condition)</li>
+<li>Participants spent less than 2 minutes on something they were not supposed to (based on condition)</li>
 </ol>
 <pre class="r"><code>fail_all &lt;- unique(c(fail_time,fail_window,fail_manip,fail_cond))
 table(dm$id %in% fail_all,dm$condition) #which failed by condition?</code></pre>

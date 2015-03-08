@@ -1,0 +1,223 @@
+---
+title: "Wilson Replication Analysis"
+output:
+  html_document:
+    toc: true
+---
+
+
+
+# Deidentify
+First, we'll deidentify the data (salt and hash) and work with that 
+```{r eval = FALSE}
+
+d <- read.csv("~/Wilson-2014-just-think-replication/data/identified/HITResultsFor3VADEH0UHCXATAPEJ7DOH8HDMOJPSJ.csv", stringsAsFactors=F)
+salt <- read.csv("~/Wilson-2014-just-think-replication/data/identified/salt.csv", stringsAsFactors=F, header = FALSE)[1,1]
+d$id <- paste(d$WorkerId, salt, sep="") #salt
+d$id <- unlist(lapply( d$id, function(id){ digest(id, algo="sha256" ) } )) #hash
+d <- select(d,-c(HitId:Status, Answer.1)) # delete MTurk Id and other extra info
+d <- d[order(d$id),] # reorder to not be identifiable with originals
+#	write the deidentified files to the shared folder
+write.csv(d,"~/Wilson-2014-just-think-replication/data/data.csv", row.names=F)
+```
+
+# Libraries
+```{r, warning=FALSE, message=FALSE}
+library(reshape2)
+library(Hmisc)
+library(dplyr)
+library(ggplot2)
+```
+
+# Data Formatting
+First we set the data up for easy analysis. Basically, this gets all the questions that were answered by the participant, and puts them in long form.
+```{r}
+d <- read.csv("~/Wilson-2014-just-think-replication/data/data.csv", stringsAsFactors=F)
+
+da <- data.frame(id=character(),
+                 variable=character(), 
+                 value=character()) 
+
+for(n in 1:nrow(d)) {
+  p <- d[n,] # get one participant
+  pat <- '.*question":"(.*)","answer.*' # get question name
+  p_ans <- p[grepl(pat, p)] # get only those answered
+  names(p_ans) <- sub(pat, "\\1", p_ans)
+  
+  pat2 <- '.*answer":(.*)}'
+  p_ans[1,] <- sub(pat2, "\\1", p_ans)
+  p_ans[1,] <- gsub("\\n", ' & ', p_ans, fixed=T) # separate activities
+  p_ans[1,] <- gsub("[[:punct:]]", '', p_ans)
+  
+  # merge with id
+  p_ans$id <- d[n,"id"]
+  
+  p_m <- melt(p_ans, id.vars="id")
+  
+  da <- rbind(da,p_m)
+}
+# variable is somehow a factor now, so let's change back to character
+da$variable <- as.character(da$variable)
+# only grad the time period of the free period
+da$variable[grep("time_free-period",da$variable)] <- "timeFreePeriod"
+# and get rid of time for now, and we could add back in if we want to take a look
+da <- da[! grepl("time_", da$variable),]
+table(da$id) # how many answers per participant?
+```
+
+# Create Checks
+
+## Window checks
+```{r}
+da[grepl("windowCheck_", da$variable) & !duplicated(da$value),]
+wChecks <- da %>% filter(grepl("windowCheck_", variable)) %>% # get windowChecks
+  group_by(id) %>%
+  mutate(false = grepl("false",value)) %>%
+  summarise(num = length(unique(value)),
+            falses = sum(false))
+  
+#get ids that don't pass window check (moved window or not active) - should only be for think condition
+fail_window <- wChecks %>% filter(num > 1 | falses != 0)
+fail_window <- fail_window$id
+# get rid of window checks to be more manageable data
+da <- da %>% filter(!grepl("windowCheck_", variable))
+```
+
+## Cast to wide form and make numeric
+Cast to long form for easier manipulation
+```{r}
+dm <- dcast(da,id ~ variable)
+```
+
+And make numeric rows numeric
+```{r}
+smart_cast_numeric <- function(DF){
+  numeric_DF <- DF
+  for(i in 1:ncol(DF)){
+  	numeric_DF[,i] <- all.is.numeric(DF[,i], what = c( "vector"), extras=c('.','NA','',NA))
+	}
+	return(numeric_DF)
+}
+dm <- smart_cast_numeric(dm)
+```
+
+Update fail_window for only those in the thinking condition
+```{r}
+fail_window <- dm[dm$id %in% fail_window & dm$condition == "think","id"]
+```
+
+## 12 minute check
+```{r}
+timeChecks <- dm %>% filter(is.na(timeFreePeriod)) # went more than 71 checks
+
+# get ids that don't pass time check
+fail_time <- unique(timeChecks$id)
+```
+
+
+## Manipulation check
+Did they respond that they did the activities asked?
+```{r}
+# find if their condition matches what they think their condition was
+fail_manip <- dm[dm$condition != dm$manipCheck,"id"]
+```
+
+## Activities check
+Did they do any of the activities they weren't supposed to?
+```{r}
+disallowed_active <- c("asleep","phonetalk","phonetext","imchat","email","talk","work")
+disallowed_think <- c(disallowed_active,"openwindow","videogame","read","puzzle","tvmovie","music","write")
+d_think <- lapply(dm[,disallowed_think],function(x){sum(x) >2})
+fail_think <- dm[dm$condition == "think" & rowSums(dm[,disallowed_think]) >2,"id"]
+fail_active <- dm[dm$condition == "active" & rowSums(dm[,disallowed_active]) >2,"id"]
+fail_cond <- c(fail_think,fail_active)
+```
+
+
+# Limiting the data
+## Original
+Criteria:
+
+1. Participants did not spend more than 12 minutes on the task, indicating they were at their computer
+
+```{r}
+table(dm$id %in% fail_time,dm$condition) #which failed by condition?
+dm1 <- dm %>% filter(!id %in% fail_time) # save new analysis dataframe
+```
+
+## Strict
+Criteria:
+
+1. Participants did not spend more than 12 minutes on the task, indicating they were at their computer
+2. Participants in the thinking condition did not resize their window
+3. Participants knew what condition they were in
+4. Participants spent less than minutes on something they were not supposed to (based on condition)
+
+```{r}
+fail_all <- unique(c(fail_time,fail_window,fail_manip,fail_cond))
+table(dm$id %in% fail_all,dm$condition) #which failed by condition?
+dm2 <- dm %>% filter(!id %in% fail_all) # save new analysis dataframe
+```
+
+
+# Original Analysis
+
+### Enjoyment plot and t-test
+```{r}
+ggplot(dm1,aes(x=enjoy, fill=condition)) +
+  geom_histogram(position="dodge", binwidth=.5) +
+  theme_classic() + 
+  scale_x_continuous(breaks=c(1.25:9.25), labels=c(1:9))
+t.test(enjoy ~ condition, dm1)
+```
+
+### Mind Wandering plot and t-test
+```{r}
+ggplot(dm1,aes(x=wander, fill=condition)) +
+  geom_histogram(position="dodge", binwidth=.5) +
+  theme_classic() + 
+  scale_x_continuous(breaks=c(1.25:9.25), labels=c(1:9))
+t.test(wander ~ condition, dm1)
+```
+### Ability to Concentrate plot and t-test
+```{r}
+ggplot(dm1,aes(x=concentrate, fill=condition)) +
+  geom_histogram(position="dodge", binwidth=.5) +
+  theme_classic() + 
+  scale_x_continuous(breaks=c(1.25:9.25), labels=c(1:9))
+t.test(concentrate ~ condition, dm1)
+```
+
+# Strict Analysis
+We do not yet have enough participants to run this...
+
+### Enjoyment plot and t-test
+```{r, eval=FALSE}
+ggplot(dm2,aes(x=enjoy, fill=condition)) +
+  geom_histogram(position="dodge", binwidth=.4) +
+  theme_classic()
+t.test(enjoy ~ condition, dm2)
+```
+
+### Mind Wandering plot and t-test
+```{r, eval=FALSE}
+ggplot(dm2,aes(x=wander, fill=condition)) +
+  geom_histogram(position="dodge", binwidth=.4) +
+  theme_classic()
+t.test(wander ~ condition, dm2)
+```
+### Ability to Concentrate plot and t-test
+```{r, eval=FALSE}
+ggplot(dm2,aes(x=concentrate, fill=condition)) +
+  geom_histogram(position="dodge", binwidth=.4) +
+  theme_classic()
+t.test(concentrate ~ condition, dm2)
+```
+
+
+
+df <- data.frame(x = c(0,0,1,2,2,2))
+
+ggplot(df,aes(x)) + 
+geom_histogram(binwidth=.3, origin = -0.25) + 
+scale_x_continuous(breaks=0:2)

@@ -213,11 +213,3 @@ ggplot(dm2,aes(x=concentrate, fill=condition)) +
   theme_classic()
 t.test(concentrate ~ condition, dm2)
 ```
-
-
-
-df <- data.frame(x = c(0,0,1,2,2,2))
-
-ggplot(df,aes(x)) + 
-geom_histogram(binwidth=.3, origin = -0.25) + 
-scale_x_continuous(breaks=0:2)

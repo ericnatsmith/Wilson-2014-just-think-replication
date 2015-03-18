@@ -5,13 +5,19 @@ output:
     toc: true
 ---
 
-
+# Libraries
+```{r, warning=FALSE, message=FALSE}
+library(reshape2)
+library(Hmisc)
+library(dplyr)
+library(ggplot2)
+library(digest)
+```
 
 # Deidentify
 First, we'll deidentify the data (salt and hash) and work with that 
 ```{r eval = FALSE}
-
-d <- read.csv("~/Wilson-2014-just-think-replication/data/identified/HITResultsFor3VADEH0UHCXATAPEJ7DOH8HDMOJPSJ.csv", stringsAsFactors=F)
+d <- read.csv("~/Wilson-2014-just-think-replication/data/identified/HITResultsFor3VADEH0UHCXATAPEJ7DOH8HDMOJPSJ_2.csv", stringsAsFactors=F)
 salt <- read.csv("~/Wilson-2014-just-think-replication/data/identified/salt.csv", stringsAsFactors=F, header = FALSE)[1,1]
 d$id <- paste(d$WorkerId, salt, sep="") #salt
 d$id <- unlist(lapply( d$id, function(id){ digest(id, algo="sha256" ) } )) #hash
@@ -19,14 +25,6 @@ d <- select(d,-c(HitId:Status, Answer.1)) # delete MTurk Id and other extra info
 d <- d[order(d$id),] # reorder to not be identifiable with originals
 #	write the deidentified files to the shared folder
 write.csv(d,"~/Wilson-2014-just-think-replication/data/data.csv", row.names=F)
-```
-
-# Libraries
-```{r, warning=FALSE, message=FALSE}
-library(reshape2)
-library(Hmisc)
-library(dplyr)
-library(ggplot2)
 ```
 
 # Data Formatting
@@ -212,4 +210,315 @@ ggplot(dm2,aes(x=concentrate, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.4) +
   theme_classic()
 t.test(concentrate ~ condition, dm2)
+```
+
+### Get means and sd's
+```{r}
+dm1_summ <- dm1 %>% group_by(condition) %>%
+  summarise(wander_mean = round(mean(wander),2),
+                              enjoy_mean = round(mean(enjoy),2),
+                              concentrate_mean = round(mean(concentrate),2),
+                              wander_sd = round(sd(wander),2),
+                              enjoy_sd = round(sd(enjoy),2),
+                              concentrate_sd = round(sd(concentrate),2))
+dm1_summ <- rbind(dm1_summ,c("orig_active",3.67,6.87,2.80,2.66,1.91,2.01))
+dm1_summ <- rbind(dm1_summ,c("orig_think",6.67,3.20,6.07,1.80,2.23,2.28))
+
+dm2_summ <- dm2 %>% group_by(condition) %>%
+  summarise(wander_mean = round(mean(wander),2),
+                              enjoy_mean = round(mean(enjoy),2),
+                              concentrate_mean = round(mean(concentrate),2),
+                              wander_sd = round(sd(wander),2),
+                              enjoy_sd = round(sd(enjoy),2),
+                              concentrate_sd = round(sd(concentrate),2))
+dm2_summ <- rbind(dm2_summ,c("orig_active",3.67,6.87,2.80,2.66,1.91,2.01))
+dm2_summ <- rbind(dm2_summ,c("orig_think",6.67,3.20,6.07,1.80,2.23,2.28))
+```
+
+### Money shots Original
+```{r}
+
+# Wander
+  gd <- as.numeric(dm1_summ[dm1_summ$condition == "orig_active",c("wander_mean","wander_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm1_summ[dm1_summ$condition == "orig_think",c("wander_mean","wander_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   a <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Mind Wandering")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Original") +
+   theme_classic()
+
+
+
+  gd <- as.numeric(dm1_summ[dm1_summ$condition == "active",c("wander_mean","wander_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm1_summ[dm1_summ$condition == "think",c("wander_mean","wander_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   b <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Mind Wandering")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Replication") +
+   theme_classic()
+
+# Enjoy
+
+  gd <- as.numeric(dm1_summ[dm1_summ$condition == "orig_active",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm1_summ[dm1_summ$condition == "orig_think",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   c <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Enjoyment")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Original") +
+   theme_classic()
+
+  gd <- as.numeric(dm1_summ[dm1_summ$condition == "active",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm1_summ[dm1_summ$condition == "think",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   d <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Enjoyment")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Replication") +
+   theme_classic()
+
+## Concentration
+  gd <- as.numeric(dm1_summ[dm1_summ$condition == "orig_active",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm1_summ[dm1_summ$condition == "orig_think",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   e <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Difficulty Concentrating")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Original") +
+   theme_classic()
+
+  gd <- as.numeric(dm1_summ[dm1_summ$condition == "active",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm1_summ[dm1_summ$condition == "think",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   f <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Difficulty Concentrating")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Replication") +
+   theme_classic()
+
+
+
+# Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  require(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+multiplot(a, b,c,d,e,f, cols=3)
+```
+
+
+# Now with stricter criteria
+```{r}
+
+# Wander
+  gd <- as.numeric(dm2_summ[dm2_summ$condition == "orig_active",c("wander_mean","wander_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm2_summ[dm2_summ$condition == "orig_think",c("wander_mean","wander_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   a <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Mind Wandering")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Original") +
+   theme_classic()
+
+
+
+  gd <- as.numeric(dm2_summ[dm2_summ$condition == "active",c("wander_mean","wander_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm2_summ[dm2_summ$condition == "think",c("wander_mean","wander_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   g <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Mind Wandering")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Replication") +
+   theme_classic()
+
+# Enjoy
+
+  gd <- as.numeric(dm2_summ[dm2_summ$condition == "orig_active",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm2_summ[dm2_summ$condition == "orig_think",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   c <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Enjoyment")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Original") +
+   theme_classic()
+
+  gd <- as.numeric(dm2_summ[dm2_summ$condition == "active",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm2_summ[dm2_summ$condition == "think",c("enjoy_mean","enjoy_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   h <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Enjoyment")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Replication") +
+   theme_classic()
+
+## Concentration
+  gd <- as.numeric(dm2_summ[dm2_summ$condition == "orig_active",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm2_summ[dm2_summ$condition == "orig_think",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   e <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Difficulty Concentrating")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Original") +
+   theme_classic()
+
+  gd <- as.numeric(dm2_summ[dm2_summ$condition == "active",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+  gd2 <- as.numeric(dm2_summ[dm2_summ$condition == "think",c("concentrate_mean","concentrate_sd")])  # get mean and sd
+   set.seed(206)
+   x<-seq(0,9,0.1)
+   l<-length(x)
+   df<-data.frame(P=factor(rep(c(paste0("\nActive-\n Mean: ",gd[1],"\nSD: ",gd[2]),paste0("\nThink-\n Mean: ",gd2[1],"\nSD: ",gd2[2])),
+            each=l) ),
+   X=(c(x,x)), 
+   Y=(c(dnorm(x,gd[1],gd[2]),dnorm(x,gd2[1],gd2[2]))))
+
+   i <- ggplot(data=df,aes(X,Y,group=P,color=P))+
+   geom_path()+
+   scale_x_continuous("Difficulty Concentrating")+
+   scale_y_continuous("")+
+   scale_color_discrete("Parameters")+
+   ggtitle("Replication") +
+   theme_classic()
+
+multiplot(a,b,g,c,d,h,e,f,i, cols=3)
 ```

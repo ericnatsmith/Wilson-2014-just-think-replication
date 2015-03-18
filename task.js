@@ -66,11 +66,11 @@ var startQuestions = function() {
 };
 
 var endExperiment = function() {
-  $z.showSlide("thank-you"); // show the start of the questions
+  //$z.showSlide("thank-you"); // show the start of the questions
   window.opener.experimentData = experiment.allData; // save data to parent window
   window.opener.experiment.end(); // call the experiment end in parent window
 
-  wait(5000, function(){
+  wait(1000, function(){
     closeWindow();
   });
 };
@@ -201,4 +201,97 @@ $z.showSlide("instructions1"); // This is where the task starts
 // [ ] Transfer data to launch screen
 // [ ] binned randomized group?
 
+// This is where the cognitive task stuff is
 
+/* define instructions block */
+    var welcome_block = {
+      type: "text",
+      text: "<p>In this experiment, a circle will appear in the center " +
+          "of the screen.</p><p>If the circle is <strong>blue</strong>, " +
+          "press the letter F on the keyboard as fast as you can.</p>" +
+          "<p>If the circle is <strong>orange</strong>, do not press " +
+          "any key.</p>" +
+          "<div class='left center-content'><img src='img/blue.png'></img>" +
+          "<p class='small'><strong>Press the F key</strong></p></div>" +
+          "<div class='right center-content'><img src='img/orange.png'></img>" +
+          "<p class='small'><strong>Do not press a key</strong></p></div>" +
+          "<p>Press any key to begin.</p>",
+      timing_post_trial: 2000
+    };
+
+    var end_block = {
+      type: "text",
+      text: "Thanks! That's the end of the study.  Push any key to close this window.",
+    };
+
+
+    /* define test block */
+
+    var test_stimuli = [
+      {
+        image: "img/blue.png",
+        data: { response: 'go' }
+      },
+      {
+        image: "img/orange.png",
+        data: { response: 'no-go' }
+      }
+    ];
+
+    var all_trials = jsPsych.randomization.repeat(test_stimuli, 10, true);
+
+    var post_trial_gap = function() {
+      return Math.floor( Math.random() * 1500 ) + 750;
+    }
+
+    var test_block = {
+      type: "single-stim",
+      stimuli: all_trials.image,
+      choices: ['F'],
+      data: all_trials.data,
+      timing_response: 1500,
+      timing_post_trial: post_trial_gap
+    };
+
+    /* define debrief block */
+
+    function getAverageResponseTime() {
+
+      var trials = jsPsych.data.getTrialsOfType('single-stim');
+
+      var sum_rt = 0;
+      var valid_trial_count = 0;
+      for (var i = 0; i < trials.length; i++) {
+        if (trials[i].response == 'go' && trials[i].rt > -1) {
+          sum_rt += trials[i].rt;
+          valid_trial_count++;
+        }
+      }
+      return Math.floor(sum_rt / valid_trial_count);
+    }
+
+    var debrief_block = {
+      type: "text",
+      text: function() {
+        return "<p>Your average response time was <strong>" +
+        getAverageResponseTime() + "ms</strong>. Press " +
+        "any key to complete the experiment. Thank you!</p>";
+      }
+    };
+
+    /* create experiment definition array */
+    var experimentJS = [];
+    experimentJS.push(welcome_block);
+    experimentJS.push(test_block);
+    experimentJS.push(end_block);
+
+    var startCog = function() {
+      jsPsych.init({
+      experiment_structure: experimentJS,
+      on_finish: function() {
+        experiment.allData.push(jsPsych.data.getData());
+        endExperiment();
+      }
+    }
+    )};
+ 

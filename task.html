@@ -11,6 +11,10 @@
 	<script src="js/Base64.js"></script>
 	<script src="js/logging.js"></script> 
 	<script src="js/mmturkey.js"></script>
+	<script src="jsPsych-4.0/jspsych.js"></script>
+    <script src="jsPsych-4.0/plugins/jspsych-text.js"></script>
+    <script src="jsPsych-4.0/plugins/jspsych-single-stim.js"></script>
+    <link href="jsPsych-4.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="css/zen.css" /> 
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
@@ -674,7 +678,8 @@
 			<button class="zen" type="button" onclick="
 			experiment.radio(['manipCheck']);
 			experiment.getTime('questions5');
-			endExperiment()">NEXT</button>
+			startCog()">NEXT</button>
+			<!-- endExperiment() before cognitive tasks -->
 		</div>
 
 		<!-- PUT Manipulation check and did anything else occur during the free period that disrupted you? (e.g. computer going to sleep?) -->
@@ -689,6 +694,10 @@
 		<div class="zen-slide" id="thank-you">
 			Thanks! That's the end of the study.  This window should now close automatically in a few seconds.
 		</div>
+
+
+		<!-- Here is all the stuff necessary for cognitive tasks -->
+
 
 
 	</body>

@@ -70,7 +70,7 @@ var endExperiment = function() {
   window.opener.experimentData = experiment.allData; // save data to parent window
   window.opener.experiment.end(); // call the experiment end in parent window
 
-  wait(1000, function(){
+  wait(500, function(){
     closeWindow();
   });
 };
@@ -206,7 +206,7 @@ $z.showSlide("instructions1"); // This is where the task starts
 /* define instructions block */
     var welcome_block = {
       type: "text",
-      text: "<p>In this experiment, a circle will appear in the center " +
+      text: "<p>In the next part of this study, a circle will appear in the center " +
           "of the screen.</p><p>If the circle is <strong>blue</strong>, " +
           "press the letter F on the keyboard as fast as you can.</p>" +
           "<p>If the circle is <strong>orange</strong>, do not press " +

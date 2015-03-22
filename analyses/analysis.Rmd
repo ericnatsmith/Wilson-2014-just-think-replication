@@ -12,12 +12,13 @@ library(Hmisc)
 library(dplyr)
 library(ggplot2)
 library(digest)
+library(effsize)
 ```
 
 # Deidentify
 First, we'll deidentify the data (salt and hash) and work with that 
 ```{r eval = FALSE}
-d <- read.csv("~/Wilson-2014-just-think-replication/data/identified/HITResultsFor3VADEH0UHCXATAPEJ7DOH8HDMOJPSJ_2.csv", stringsAsFactors=F)
+d <- read.csv("~/Wilson-2014-just-think-replication/data/identified/HITResultsFor3VADEH0UHCXATAPEJ7DOH8HDMOJPSJ_3.csv", stringsAsFactors=F)
 salt <- read.csv("~/Wilson-2014-just-think-replication/data/identified/salt.csv", stringsAsFactors=F, header = FALSE)[1,1]
 d$id <- paste(d$WorkerId, salt, sep="") #salt
 d$id <- unlist(lapply( d$id, function(id){ digest(id, algo="sha256" ) } )) #hash
@@ -60,14 +61,14 @@ da$variable <- as.character(da$variable)
 da$variable[grep("time_free-period",da$variable)] <- "timeFreePeriod"
 # and get rid of time for now, and we could add back in if we want to take a look
 da <- da[! grepl("time_", da$variable),]
-table(da$id) # how many answers per participant?
+#table(da$id) # how many answers per participant?
 ```
 
 # Create Checks
 
 ## Window checks
 ```{r}
-da[grepl("windowCheck_", da$variable) & !duplicated(da$value),]
+# da[grepl("windowCheck_", da$variable) & !duplicated(da$value),]
 wChecks <- da %>% filter(grepl("windowCheck_", variable)) %>% # get windowChecks
   group_by(id) %>%
   mutate(false = grepl("false",value)) %>%
@@ -102,6 +103,7 @@ dm <- smart_cast_numeric(dm)
 Update fail_window for only those in the thinking condition
 ```{r}
 fail_window <- dm[dm$id %in% fail_window & dm$condition == "think","id"]
+length(fail_window) # 13 failed window check
 ```
 
 ## 12 minute check
@@ -110,6 +112,7 @@ timeChecks <- dm %>% filter(is.na(timeFreePeriod)) # went more than 71 checks
 
 # get ids that don't pass time check
 fail_time <- unique(timeChecks$id)
+length(fail_time) # 9 failed time check
 ```
 
 
@@ -118,6 +121,7 @@ Did they respond that they did the activities asked?
 ```{r}
 # find if their condition matches what they think their condition was
 fail_manip <- dm[dm$condition != dm$manipCheck,"id"]
+length(fail_manip) # 15 failed time check
 ```
 
 ## Activities check
@@ -161,82 +165,126 @@ dm2 <- dm %>% filter(!id %in% fail_all) # save new analysis dataframe
 # Original Analysis
 
 ### Enjoyment plot and t-test
-```{r}
+```{r, fig.align='center', fig.width=5, fig.height=3}
 ggplot(dm1,aes(x=enjoy, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.5) +
   theme_classic() + 
   scale_x_continuous(breaks=c(1.25:9.25), labels=c(1:9))
-t.test(enjoy ~ condition, dm1)
+t.test(enjoy ~ condition, dm1, var.equal=TRUE)
+t.test(enjoy ~ condition, dm1, var.equal=FALSE)
+var.test(enjoy ~ condition, dm1)
+cohen.d(dm1$enjoy,dm1$condition,pooled=TRUE,paired=FALSE,
+        na.rm=TRUE)
 ```
 
 ### Mind Wandering plot and t-test
-```{r}
+```{r, fig.align='center', fig.width=5, fig.height=3}
 ggplot(dm1,aes(x=wander, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.5) +
   theme_classic() + 
   scale_x_continuous(breaks=c(1.25:9.25), labels=c(1:9))
-t.test(wander ~ condition, dm1)
+t.test(wander ~ condition, dm1, var.equal=TRUE)
+t.test(wander ~ condition, dm1, var.equal=FALSE)
+var.test(wander ~ condition, dm1)
+cohen.d(dm1$wander,dm1$condition,pooled=TRUE,paired=FALSE,
+        na.rm=TRUE)
 ```
-### Ability to Concentrate plot and t-test
-```{r}
+### Difficulty Concentrating plot and t-test
+```{r, fig.align='center', fig.width=5, fig.height=3}
 ggplot(dm1,aes(x=concentrate, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.5) +
   theme_classic() + 
   scale_x_continuous(breaks=c(1.25:9.25), labels=c(1:9))
-t.test(concentrate ~ condition, dm1)
+t.test(concentrate ~ condition, dm1, var.equal=TRUE)
+t.test(concentrate ~ condition, dm1, var.equal=FALSE)
+var.test(concentrate ~ condition, dm1)
+cohen.d(dm1$concentrate,dm1$condition,pooled=TRUE,paired=FALSE,
+        na.rm=TRUE)
 ```
 
 # Strict Analysis
 We do not yet have enough participants to run this...
 
 ### Enjoyment plot and t-test
-```{r, eval=FALSE}
+```{r, fig.align='center', fig.width=5, fig.height=3}
 ggplot(dm2,aes(x=enjoy, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.4) +
   theme_classic()
-t.test(enjoy ~ condition, dm2)
+t.test(enjoy ~ condition, dm2, var.equal=TRUE)
+t.test(enjoy ~ condition, dm2, var.equal=FALSE)
+var.test(enjoy ~ condition, dm2)
+cohen.d(dm2$enjoy,dm2$condition,pooled=TRUE,paired=FALSE,
+        na.rm=TRUE)
 ```
 
 ### Mind Wandering plot and t-test
-```{r, eval=FALSE}
+```{r, fig.align='center', fig.width=5, fig.height=3}
 ggplot(dm2,aes(x=wander, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.4) +
   theme_classic()
-t.test(wander ~ condition, dm2)
+t.test(wander ~ condition, dm2, var.equal=TRUE)
+t.test(wander ~ condition, dm2, var.equal=FALSE)
+var.test(wander ~ condition, dm2)
+cohen.d(dm2$wander,dm2$condition,pooled=TRUE,paired=FALSE,
+        na.rm=TRUE)
 ```
 ### Ability to Concentrate plot and t-test
-```{r, eval=FALSE}
+```{r, fig.align='center', fig.width=5, fig.height=3}
 ggplot(dm2,aes(x=concentrate, fill=condition)) +
   geom_histogram(position="dodge", binwidth=.4) +
   theme_classic()
-t.test(concentrate ~ condition, dm2)
+t.test(concentrate ~ condition, dm2, var.equal=TRUE)
+t.test(concentrate ~ condition, dm2, var.equal=FALSE)
+var.test(concentrate ~ condition, dm2)
+cohen.d(dm2$concentrate,dm2$condition,pooled=TRUE,paired=FALSE,
+        na.rm=TRUE)
+
 ```
 
-### Get means and sd's
+
+# Make some simple plots
+
+## Get means and sd's
 ```{r}
 dm1_summ <- dm1 %>% group_by(condition) %>%
-  summarise(wander_mean = round(mean(wander),2),
-                              enjoy_mean = round(mean(enjoy),2),
-                              concentrate_mean = round(mean(concentrate),2),
-                              wander_sd = round(sd(wander),2),
-                              enjoy_sd = round(sd(enjoy),2),
-                              concentrate_sd = round(sd(concentrate),2))
+  summarise(wander_mean = round(mean(wander,na.rm=T),2),
+                              enjoy_mean = round(mean(enjoy,na.rm=T),2),
+                              concentrate_mean = round(mean(concentrate,na.rm=T),2),
+                              wander_sd = round(sd(wander,na.rm=T),2),
+                              enjoy_sd = round(sd(enjoy,na.rm=T),2),
+                              concentrate_sd = round(sd(concentrate,na.rm=T),2))
 dm1_summ <- rbind(dm1_summ,c("orig_active",3.67,6.87,2.80,2.66,1.91,2.01))
 dm1_summ <- rbind(dm1_summ,c("orig_think",6.67,3.20,6.07,1.80,2.23,2.28))
 
 dm2_summ <- dm2 %>% group_by(condition) %>%
-  summarise(wander_mean = round(mean(wander),2),
-                              enjoy_mean = round(mean(enjoy),2),
-                              concentrate_mean = round(mean(concentrate),2),
-                              wander_sd = round(sd(wander),2),
-                              enjoy_sd = round(sd(enjoy),2),
-                              concentrate_sd = round(sd(concentrate),2))
+  summarise(wander_mean = round(mean(wander,na.rm=T),2),
+                              enjoy_mean = round(mean(enjoy,na.rm=T),2),
+                              concentrate_mean = round(mean(concentrate,na.rm=T),2),
+                              wander_sd = round(sd(wander,na.rm=T),2),
+                              enjoy_sd = round(sd(enjoy,na.rm=T),2),
+                              concentrate_sd = round(sd(concentrate,na.rm=T),2))
 dm2_summ <- rbind(dm2_summ,c("orig_active",3.67,6.87,2.80,2.66,1.91,2.01))
 dm2_summ <- rbind(dm2_summ,c("orig_think",6.67,3.20,6.07,1.80,2.23,2.28))
 ```
 
-### Money shots Original
+### Wilcox tests
 ```{r}
+wilcox.test(enjoy ~ condition, dm1)
+wilcox.test(wander ~ condition, dm1)
+wilcox.test(concentrate ~ condition, dm1)
+wilcox.test(enjoy ~ condition, dm2)
+wilcox.test(wander ~ condition, dm2)
+wilcox.test(concentrate ~ condition, dm2)
+```
+
+
+
+
+
+
+
+## Money shots Original
+```{r, fig.height=5, fig.width=10, echo=FALSE}
 
 # Wander
   gd <- as.numeric(dm1_summ[dm1_summ$condition == "orig_active",c("wander_mean","wander_sd")])  # get mean and sd
@@ -355,15 +403,6 @@ dm2_summ <- rbind(dm2_summ,c("orig_think",6.67,3.20,6.07,1.80,2.23,2.28))
 
 
 # Multiple plot function
-#
-# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
-# - cols:   Number of columns in layout
-# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
-#
-# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
-# then plot 1 will go in the upper left, 2 will go in the upper right, and
-# 3 will go all the way across the bottom.
-#
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   require(grid)
 
@@ -403,8 +442,8 @@ multiplot(a, b,c,d,e,f, cols=3)
 ```
 
 
-# Now with stricter criteria
-```{r}
+## Money shots Strict
+```{r, fig.height=7.5, fig.width=10, echo=FALSE}
 
 # Wander
   gd <- as.numeric(dm2_summ[dm2_summ$condition == "orig_active",c("wander_mean","wander_sd")])  # get mean and sd
@@ -442,7 +481,7 @@ multiplot(a, b,c,d,e,f, cols=3)
    scale_x_continuous("Mind Wandering")+
    scale_y_continuous("")+
    scale_color_discrete("Parameters")+
-   ggtitle("Replication") +
+   ggtitle("Replication-Strict") +
    theme_classic()
 
 # Enjoy
@@ -480,7 +519,7 @@ multiplot(a, b,c,d,e,f, cols=3)
    scale_x_continuous("Enjoyment")+
    scale_y_continuous("")+
    scale_color_discrete("Parameters")+
-   ggtitle("Replication") +
+   ggtitle("Replication-Strict") +
    theme_classic()
 
 ## Concentration
@@ -517,7 +556,7 @@ multiplot(a, b,c,d,e,f, cols=3)
    scale_x_continuous("Difficulty Concentrating")+
    scale_y_continuous("")+
    scale_color_discrete("Parameters")+
-   ggtitle("Replication") +
+   ggtitle("Replication-Strict") +
    theme_classic()
 
 multiplot(a,b,g,c,d,h,e,f,i, cols=3)

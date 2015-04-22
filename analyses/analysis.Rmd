@@ -24,7 +24,7 @@ d$id <- paste(d$WorkerId, salt, sep="") #salt
 d$id <- unlist(lapply( d$id, function(id){ digest(id, algo="sha256" ) } )) #hash
 d <- select(d,-c(HitId:Status, Answer.1)) # delete MTurk Id and other extra info
 d <- d[order(d$id),] # reorder to not be identifiable with originals
-#	write the deidentified files to the shared folder
+#  write the deidentified files to the shared folder
 write.csv(d,"~/Wilson-2014-just-think-replication/data/data.csv", row.names=F)
 ```
 
@@ -36,6 +36,9 @@ d <- read.csv("~/Wilson-2014-just-think-replication/data/data.csv", stringsAsFac
 da <- data.frame(id=character(),
                  variable=character(), 
                  value=character()) 
+
+# delete participant with no data
+d <- d[!d$AcceptTime=="",]
 
 for(n in 1:nrow(d)) {
   p <- d[n,] # get one participant
@@ -100,6 +103,7 @@ smart_cast_numeric <- function(DF){
 dm <- smart_cast_numeric(dm)
 ```
 
+
 Update fail_window for only those in the thinking condition
 ```{r}
 fail_window <- dm[dm$id %in% fail_window & dm$condition == "think","id"]
@@ -135,7 +139,6 @@ fail_active <- dm[dm$condition == "active" & rowSums(dm[,disallowed_active]) >2,
 fail_cond <- c(fail_think,fail_active)
 ```
 
-
 # Limiting the data
 ## Original
 Criteria:
@@ -145,6 +148,7 @@ Criteria:
 ```{r}
 table(dm$id %in% fail_time,dm$condition) #which failed by condition?
 dm1 <- dm %>% filter(!id %in% fail_time) # save new analysis dataframe
+dm$limit_orig <- !dm$id %in% fail_time
 ```
 
 ## Strict
@@ -159,8 +163,13 @@ Criteria:
 fail_all <- unique(c(fail_time,fail_window,fail_manip,fail_cond))
 table(dm$id %in% fail_all,dm$condition) #which failed by condition?
 dm2 <- dm %>% filter(!id %in% fail_all) # save new analysis dataframe
+dm$limit_strict <- !dm$id %in% fail_all
 ```
 
+## Save formatted dataframe
+```{r, eval=FALSE}
+write.csv(dm,"~/Wilson-2014-just-think-replication/data/data_formatted.csv", row.names=F)
+```
 
 # Original Analysis
 
@@ -268,7 +277,7 @@ dm2_summ <- rbind(dm2_summ,c("orig_think",6.67,3.20,6.07,1.80,2.23,2.28))
 ```
 
 ### Wilcox tests
-```{r}
+```{r, warning=FALSE}
 wilcox.test(enjoy ~ condition, dm1)
 wilcox.test(wander ~ condition, dm1)
 wilcox.test(concentrate ~ condition, dm1)

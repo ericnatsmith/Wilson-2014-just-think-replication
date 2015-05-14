@@ -22,6 +22,13 @@ d <- read.csv("~/Wilson-2014-just-think-replication/data/identified/HITResultsFo
 salt <- read.csv("~/Wilson-2014-just-think-replication/data/identified/salt.csv", stringsAsFactors=F, header = FALSE)[1,1]
 d$id <- paste(d$WorkerId, salt, sep="") #salt
 d$id <- unlist(lapply( d$id, function(id){ digest(id, algo="sha256" ) } )) #hash
+
+# Get Zip code
+grep()
+
+pat <- ".*timezone.{2}([0-9]*).*";
+d$Timezone <- sub(pat, "\\1", d$Answer.1)
+
 d <- select(d,-c(HitId:Status, Answer.1)) # delete MTurk Id and other extra info
 d <- d[order(d$id),] # reorder to not be identifiable with originals
 #  write the deidentified files to the shared folder
@@ -165,6 +172,13 @@ table(dm$id %in% fail_all,dm$condition) #which failed by condition?
 dm2 <- dm %>% filter(!id %in% fail_all) # save new analysis dataframe
 dm$limit_strict <- !dm$id %in% fail_all
 ```
+
+Merge back in time information
+```{r}
+dm <- merge(dm,d[,c("id","AcceptTime","SubmitTime", "Timezone")],all.x=T,all.y=F)
+```
+
+
 
 ## Save formatted dataframe
 ```{r, eval=FALSE}
